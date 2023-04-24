@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PideTuComida</string>
+    <string name="write_email">Ingresa tu correo</string>
+    <string name="write_pass">Ingresa tu contraseña</string>
+    <string name="ok">Entrar</string>
+    <string name="skip">Omitir</string>
+    <string name="label_check_in">¿Aún no tienes cuenta?</string>
+    <string name="mb_check_in">Registrarte</string>
+
+</resources>
