@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         binding.mbCheckIn.setOnClickListener {
             val intent= Intent(this,RegisterActivity::class.java)
             startActivity(intent)
+
+            binding.etEmail.setText("")
+            binding.etPass.setText("")
         }
 
         binding.mbEnter.setOnClickListener {

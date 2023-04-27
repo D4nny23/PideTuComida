@@ -36,6 +36,7 @@
                 app:boxBackgroundMode="none">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_person"
@@ -62,10 +63,12 @@
                 app:boxBackgroundMode="none">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPass"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_lock"
                     android:maxLines="1"
+                    android:inputType="textPassword"
                     android:background="@color/transparent"
                     android:backgroundTint="@color/transparent"/>
 
@@ -118,7 +121,7 @@
                 app:layout_constraintVertical_bias="0.2"/>
 
             <TextView
-                android:id="@+id/tvCheckIn"
+                android:id="@+id/tvNoHaveAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/mbEnter"
@@ -127,7 +130,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.1"
                 app:layout_constraintVertical_bias="0.3"
-                android:text="@string/label_check_in"
+                android:text="@string/no_have_account"
                 android:textColor="@color/black"
                 android:textStyle="italic"/>
 
@@ -135,12 +138,12 @@
                 android:id="@+id/mbCheckIn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/mb_check_in"
+                android:text="@string/register"
                 android:textColor="@color/green"
                 android:textStyle="italic"
                 app:layout_constraintTop_toBottomOf="@id/mbSkip"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tvCheckIn"
+                app:layout_constraintStart_toEndOf="@id/tvNoHaveAccount"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.9"
                 app:layout_constraintVertical_bias="0.3"

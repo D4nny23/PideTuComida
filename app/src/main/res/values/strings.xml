@@ -4,7 +4,15 @@
     <string name="write_pass">Ingresa tu contraseña</string>
     <string name="ok">Entrar</string>
     <string name="skip">Omitir</string>
-    <string name="label_check_in">¿Aún no tienes cuenta?</string>
-    <string name="mb_check_in">Registrarte</string>
+    <string name="no_have_account">¿Aún no tienes cuenta?</string>
+    <string name="register">Registrarte</string>
+    <string name="name">Nombre</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="last_name">Apellido</string>
+    <string name="adress">Dirección</string>
+    <string name="number_phone">Número de telefono</string>
+    <string name="repeat_pass">Repite contraseña</string>
+
 
 </resources>
