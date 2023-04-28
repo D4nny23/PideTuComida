@@ -97,6 +97,7 @@ class RegisterActivity : AppCompatActivity() {
                 ContextCompat.getDrawable(this@RegisterActivity, R.drawable.border)
             binding.etPassword.compoundDrawableTintList =
                 ColorStateList.valueOf(ContextCompat.getColor(this@RegisterActivity, R.color.green))
+
         }
     }
 }
