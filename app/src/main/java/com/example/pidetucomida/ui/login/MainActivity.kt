@@ -1,10 +1,12 @@
-package com.example.pidetucomida
+package com.example.pidetucomida.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import com.example.pidetucomida.R
+import com.example.pidetucomida.ui.register.RegisterActivity
 import com.example.pidetucomida.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -23,8 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupListener(){
         binding.mbCheckIn.setOnClickListener {
-            val intent= Intent(this,RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
 
             binding.etEmail.setText("")
             binding.etPass.setText("")
