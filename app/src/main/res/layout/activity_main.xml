@@ -14,11 +14,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@drawable/border"
-        android:layout_margin="10dp">
+        android:layout_marginTop="40dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="30dp">
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tlEmail"
                 android:layout_width="350dp"

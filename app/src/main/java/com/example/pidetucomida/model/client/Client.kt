@@ -1,4 +1,4 @@
-package com.example.pidetucomida.model.Client
+package com.example.pidetucomida.model.client
 
 data class Client(
     val id: Int,
