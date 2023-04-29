@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.mbSkip.setOnClickListener {
-
+            startActivity(Intent(this, ContentScreenActivity::class.java))
         }
     }
 
