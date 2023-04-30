@@ -17,6 +17,7 @@ class ContentScreenActivity : AppCompatActivity() {
         binding= ActivityContentScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setupToolbar()
+        setupView()
     }
 
     private fun setupToolbar(){
@@ -27,4 +28,12 @@ class ContentScreenActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
     }
+
+    private fun setupView(){
+        val adapter = ViewPagerAdapterContent(supportFragmentManager, lifecycle)
+
+        binding.wpMain.adapter=adapter
+
+    }
+
 }

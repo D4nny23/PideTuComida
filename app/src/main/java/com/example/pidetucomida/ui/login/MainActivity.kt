@@ -4,14 +4,22 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import androidx.lifecycle.ViewModelProvider
 import com.example.pidetucomida.R
+import com.example.pidetucomida.data.ApiService
 import com.example.pidetucomida.ui.register.RegisterActivity
 import com.example.pidetucomida.databinding.ActivityMainBinding
 import com.example.pidetucomida.ui.content.ContentScreenActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel= ViewModelProvider(this)[MainActivityViewModel::class.java]
         setupListener()
+//        searchUsers()
     }
 
     private fun setupListener(){
@@ -52,5 +61,24 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+//    private fun getRetrofit(): Retrofit{
+//        return Retrofit.Builder()
+//            .baseUrl("http://localhost:8080/WebApplication2/")
+//            .addConverterFactory(GsonConverterFactory.create())
+//            .build()
+//    }
+//
+//    private fun  searchUsers(){
+//        CoroutineScope(Dispatchers.IO).launch {
+//            val call= getRetrofit().create(ApiService::class.java).getProducts("resources/users/")
+//            val users=call.body()
+//            if (call.isSuccessful){
+//                println(users.toString())
+//                Log.d("EXITO", "")
+//            }else{
+//                //showError
+//            }
+//        }
+//    }
 
 }
