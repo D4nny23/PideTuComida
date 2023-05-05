@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         setupListener()
-        searchUsers()
     }
 
     private fun setupListener() {
@@ -46,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.mbEnter.setOnClickListener {
             val client = viewModel.findClientByEmail(binding.etEmail.text.toString())
-            if (binding.etEmail.text.toString() == client.email) {
+            if (binding.etEmail.text.toString() == client.correo) {
                 if (binding.etPass.text.toString() == client.pass) {
                     startActivity(Intent(this, ContentScreenActivity::class.java))
                 }
@@ -58,24 +57,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("http://192.168.0.27:8080/WebApplication2/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
 
-    private fun searchUsers() {
-        CoroutineScope(Dispatchers.IO).launch {
-            val call = getRetrofit().create(ApiService::class.java).getProducts("resources/users/")
-            call.let {
-                call.forEach{
-                        println(it.toString())
-                        Log.d("EXITO", "")
-                }
-            }
-
-        }
-    }
 
 }

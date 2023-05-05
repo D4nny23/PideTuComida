@@ -52,4 +52,9 @@ dependencies {
     //Corrutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
 
+    //ViewModelScope
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
+
+    //Cifrado
+    implementation 'org.mindrot:jbcrypt:0.4'
 }

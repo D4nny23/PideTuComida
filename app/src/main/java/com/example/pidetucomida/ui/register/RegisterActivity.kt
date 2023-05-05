@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.pidetucomida.R
 import com.example.pidetucomida.databinding.ActivityRegisterBinding
 import com.example.pidetucomida.ui.login.MainActivity
+import com.example.pidetucomida.utils.UtilsChyper
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -55,7 +56,9 @@ class RegisterActivity : AppCompatActivity() {
             number=viewModel.setupNumberPhone(this,binding,background)
 
             if(email && pass && name && lastName && address && number){
+                viewModel.addClient(this)
                 startActivity(Intent(this, MainActivity::class.java))
+
             }
         }
 

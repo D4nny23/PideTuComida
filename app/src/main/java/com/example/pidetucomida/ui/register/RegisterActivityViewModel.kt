@@ -4,16 +4,24 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.pidetucomida.R
+import com.example.pidetucomida.data.Repository
 import com.example.pidetucomida.databinding.ActivityRegisterBinding
+import com.example.pidetucomida.model.client.ClientDto
+import com.example.pidetucomida.utils.UtilsChyper
+import com.example.pidetucomida.utils.UtilsRetrofit
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.coroutines.launch
 
 class RegisterActivityViewModel : ViewModel() {
-
+    private var client: ClientDto= ClientDto()
+    private val repository = Repository()
     @SuppressLint("UseCompatTextViewDrawableApis")
     @RequiresApi(Build.VERSION_CODES.M)
     fun setupEmail(context: Context, binding: ActivityRegisterBinding, background: Int):Boolean {
@@ -23,6 +31,7 @@ class RegisterActivityViewModel : ViewModel() {
             setError(binding.tiEmail,context,"Este campo debe contener '@'",background,binding.etEmail)
         } else {
             removeError(binding.tiEmail,context,binding.etEmail)
+            client.correo=binding.etEmail.text.toString()
             return true
         }
         return false
@@ -46,7 +55,9 @@ class RegisterActivityViewModel : ViewModel() {
         }
         setupRepeatPassword(context,binding,background)
         response = response && setupRepeatPassword(context,binding,background)
+        if (response) client.pass= UtilsChyper().hashPassword(binding.etPassword.text.toString())
         return response
+
     }
 
     @SuppressLint("UseCompatTextViewDrawableApis")
@@ -74,6 +85,7 @@ class RegisterActivityViewModel : ViewModel() {
             setError(binding.tiName, context ,"El nombre no puede contener caracteres especiales", background, binding.etName)
         } else {
             removeError(binding.tiName, context,binding.etName)
+            client.nombre= binding.etName.text.toString()
             return true
         }
         return false
@@ -89,6 +101,7 @@ class RegisterActivityViewModel : ViewModel() {
             setError(binding.tiLastName, context ,"El apellid no puede contener caracteres especiales", background, binding.etLastName)
         } else {
             removeError(binding.tiLastName, context,binding.etLastName)
+            client.apellido= binding.etLastName.text.toString()
             return true
         }
         return false
@@ -104,6 +117,7 @@ class RegisterActivityViewModel : ViewModel() {
             setError(binding.tiAdress, context ,"La dirección no puede contener caracteres especiales", background, binding.etAdress)
         } else {
             removeError(binding.tiAdress, context,binding.etAdress)
+            client.direccionEnvio= binding.etAdress.text.toString()
             return true
         }
         return false
@@ -119,6 +133,7 @@ class RegisterActivityViewModel : ViewModel() {
             setError(binding.tiNumberPhone, context ,"Este campo debe tener 9 carácteres", background, binding.etNumberPhone)
         }else{
             removeError(binding.tiAdress, context,binding.etAdress)
+            client.telefono= binding.etNumberPhone.text.toString()
             return true
         }
         return false
@@ -147,7 +162,18 @@ class RegisterActivityViewModel : ViewModel() {
     }
 
 
-    private fun addClient(){//Este metodo añadirá el cliente a la base de datos
-
+    fun addClient(context: Context){//Este metodo añadirá el cliente a la base de datos
+        viewModelScope.launch {
+            try {
+                val response = repository.addClient(client)
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "Cliente añadido exitosamente", Toast.LENGTH_SHORT).show()
+                } else {
+                    println("Hubo un error al añadir el cliente.")
+                }
+            } catch (e: Exception) {
+                println("Hubo una excepción al añadir el cliente: $e")
+            }
+        }
     }
 }
