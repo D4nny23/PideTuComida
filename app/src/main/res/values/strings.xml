@@ -13,6 +13,14 @@
     <string name="adress">Dirección</string>
     <string name="number_phone">Número de telefono</string>
     <string name="repeat_pass">Repite contraseña</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="burguers">Hamburguesas</string>
+    <string name="pizza">Pizza</string>
+    <string name="Kebab">kebab</string>
+    <string name="comida_de_la_casa">De la casa</string>
+
+
+
 
 
 </resources>
