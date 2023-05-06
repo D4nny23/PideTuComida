@@ -1,6 +1,7 @@
 package com.example.pidetucomida.data
 
 import com.example.pidetucomida.model.client.ClientDto
+import com.example.pidetucomida.model.client.ClientResponse
 import com.example.pidetucomida.model.product.ProductResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -13,8 +14,8 @@ interface ApiService {
     suspend fun createClient(@Body client: ClientDto): Response<Boolean>
 
 
-//    @GET
-//    suspend fun getClient(@Url url:String):ProductResponse
+    @GET
+    suspend fun getClient(@Url url:String):ClientResponse
 
     @GET
     suspend fun getProducts(@Url url:String):MutableList<ProductResponse>

@@ -19,3 +19,11 @@ data class ClientDto(
         ""
     )
 }
+
+data class ClientResponse(val id: Int? = null,
+                          var correo: String,
+                          var pass: String,
+                          var nombre: String,
+                          var apellido: String,
+                          var direccionEnvio: String,
+                          var telefono: String)

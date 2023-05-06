@@ -1,6 +1,7 @@
 package com.example.pidetucomida.data
 
 import com.example.pidetucomida.model.client.ClientDto
+import com.example.pidetucomida.model.client.ClientResponse
 import com.example.pidetucomida.model.product.ProductResponse
 import com.example.pidetucomida.utils.UtilsRetrofit
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +23,7 @@ class Repository {
         return apiService.createClient(client)
     }
 
-//    suspend fun login(email: String){
-//        apiService.getClient("")
-//    }
+    suspend fun login(email: String): ClientResponse{
+        return apiService.getClient("resources/api/cliente/$email")
+    }
 }

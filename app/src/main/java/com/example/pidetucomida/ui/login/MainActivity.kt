@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.pidetucomida.R
 import com.example.pidetucomida.data.ApiService
@@ -44,19 +45,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.mbEnter.setOnClickListener {
-            val client = viewModel.findClientByEmail(binding.etEmail.text.toString())
-            if (binding.etEmail.text.toString() == client.correo) {
-                if (binding.etPass.text.toString() == client.pass) {
+            viewModel.findClientByEmail(
+                binding.etEmail.text.toString(), binding.etPass.text.toString()
+            ).observe(this) { success ->
+                if (success) {
                     startActivity(Intent(this, ContentScreenActivity::class.java))
+                } else {
+                    Toast.makeText(this, "Correo o contrseña incorrecto", Toast.LENGTH_SHORT).show()
                 }
+
             }
         }
+
 
         binding.mbSkip.setOnClickListener {
             startActivity(Intent(this, ContentScreenActivity::class.java))
         }
     }
-
-
-
 }
+
+
+
