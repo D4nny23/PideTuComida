@@ -46,7 +46,7 @@ class ContentScreenActivity : AppCompatActivity() {
 
     private fun setupView(){
         val adapter = ViewPagerAdapterContent(supportFragmentManager, lifecycle)
-        adapter.addFragment(ContentFragment.newInstance(viewModel.listProductBurgers.value), R.string.burguers)
+        adapter.addFragment(ContentFragment.newInstance(mutableListOf()), R.string.burguers)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf()), R.string.Kebab)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf()), R.string.pizza)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf()), R.string.comida_de_la_casa)
