@@ -57,4 +57,9 @@ dependencies {
 
     //Cifrado
     implementation 'org.mindrot:jbcrypt:0.4'
+
+    //ViewModelFragment
+    implementation 'androidx.fragment:fragment-ktx:1.4.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+
 }

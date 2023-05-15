@@ -23,7 +23,12 @@ class Repository {
         return apiService.createClient(client)
     }
 
-    suspend fun login(email: String): ClientResponse{
+    suspend fun login(email: String): ClientResponse {
         return apiService.getClient("resources/api/cliente/$email")
+    }
+
+    suspend fun getProductsByType(type: String): MutableList<ProductResponse> {
+        return apiService.getProductsByType("resources/api/productos/$type")
+
     }
 }

@@ -5,36 +5,100 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.pidetucomida.databinding.FragmentContentBinding
 import com.example.pidetucomida.model.product.ProductResponse
+import com.example.pidetucomida.ui.content.adapter.ProductsAdapter
 
 class ContentFragment : Fragment() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        var binding = FragmentContentBinding.inflate(layoutInflater, container,false)
-        setupView(binding)
+    private val viewModel: FragmentContentViewModel by viewModels()
+
+    private var type: String = ""
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+        val binding = FragmentContentBinding.inflate(inflater,container,false)
+
+        setUpView(binding)
+
+        setUpObservable(binding)
+
+        getAdapter(binding)
+
         return binding.root
     }
+    private fun setUpObservable(binding: FragmentContentBinding){
+        viewModel.productsByType.observe(viewLifecycleOwner) { modelList ->
+            updateAdapter(binding, modelList)
+            }
+        }
 
-    private fun setupView(binding: FragmentContentBinding){
-
+    private fun updateAdapter(binding: FragmentContentBinding, modelList: MutableList<ProductResponse>) {
+        (binding.rvProducts.adapter as ProductsAdapter?)?.apply {
+            addAll(modelList)
+        }
     }
 
-    private fun setupAdapter(){
-
+    private fun setUpView(binding: FragmentContentBinding) {
+        viewModel.getProductsByType(type)
+//        binding.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(text: String?): Boolean {
+//                return true
+//            }
+//
+//            override fun onQueryTextChange(text: String?): Boolean {
+//                text?.let {
+//                    viewModel.getFavouriteTouristResources(it, resourceIsFavourite)
+//                }
+//                return false
+//            }
+//        })
     }
+
+    private fun getAdapter(binding: FragmentContentBinding) {
+        binding.rvProducts.layoutManager =
+            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
+        val myProductsAdapter = ProductsAdapter(
+            resourceList,
+            requireContext(),
+            object : ProductsViewHolder.OnClickListener {
+
+//                override fun onClick(model: TouristResourceModel) {
+//                    val intent = Intent(requireContext(), DetailMenuActivity::class.java)
+//                    intent.putExtra(TypeResource.TOURIST_RESOURCE)
+//                    intent.putExtra(Constants.INTENT_DETAIL_NEWS_IMAGE, model.image)
+//                    intent.putExtra(Constants.INTENT_DETAIL_RESOURCE_ID, model.id)
+//                    startActivity(intent)
+//                }
+//
+//                override fun onClickFavorite(id: String, isFavorite: Boolean) {
+//                    viewModel.onFavoriteResource(id, isFavorite)
+//                }
+//
+//                override fun onUpdateItems(mutableList: MutableList<TouristResourceModel>) {
+//                    if (mutableList.isEmpty()){
+//                        binding.tvWithoutResult.visibility = View.VISIBLE
+//                    }else{
+//                        binding.tvWithoutResult.visibility = View.GONE
+//                    }
+//                }
+            }
+        )
+        binding.rvProducts.adapter = myProductsAdapter
+    }
+
     companion object {
         private lateinit var resourceList: MutableList<ProductResponse>
         @JvmStatic
-        fun newInstance(modelList: MutableList<ProductResponse>?) =
+        fun newInstance(modelList: MutableList<ProductResponse>, type: String) =
             ContentFragment().apply {
-                if (modelList != null) {
-                    resourceList=modelList
-                }
-                }
+                resourceList = modelList
+                this.type=type
             }
+    }
     }

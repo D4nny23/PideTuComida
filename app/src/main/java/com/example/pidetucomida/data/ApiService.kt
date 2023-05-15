@@ -20,4 +20,7 @@ interface ApiService {
     @GET
     suspend fun getProducts(@Url url:String):MutableList<ProductResponse>
 
+    @GET
+    suspend fun getProductsByType(@Url url:String):MutableList<ProductResponse>
+
 }
