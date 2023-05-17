@@ -4,20 +4,13 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.pidetucomida.R
-import com.example.pidetucomida.data.ApiService
 import com.example.pidetucomida.ui.register.RegisterActivity
 import com.example.pidetucomida.databinding.ActivityMainBinding
 import com.example.pidetucomida.ui.content.ContentScreenActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
 

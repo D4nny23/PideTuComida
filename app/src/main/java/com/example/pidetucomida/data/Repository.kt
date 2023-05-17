@@ -1,13 +1,10 @@
 package com.example.pidetucomida.data
 
+import com.example.pidetucomida.api.ApiService
 import com.example.pidetucomida.model.client.ClientDto
 import com.example.pidetucomida.model.client.ClientResponse
 import com.example.pidetucomida.model.product.ProductResponse
 import com.example.pidetucomida.utils.UtilsRetrofit
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Call
 import retrofit2.Response
 
 class Repository {

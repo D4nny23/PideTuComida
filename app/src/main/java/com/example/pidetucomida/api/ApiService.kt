@@ -1,4 +1,4 @@
-package com.example.pidetucomida.data
+package com.example.pidetucomida.api
 
 import com.example.pidetucomida.model.client.ClientDto
 import com.example.pidetucomida.model.client.ClientResponse
