@@ -16,12 +16,17 @@ class FragmentContentViewModel: ViewModel() {
     private val _productsByType= MutableLiveData<MutableList<ProductResponse>>()
     val productsByType: LiveData<MutableList<ProductResponse>> = _productsByType
 
+    private val _loadingFormState= MutableLiveData<Boolean>()
+    val loadingFormState: LiveData<Boolean> = _loadingFormState
 
     fun getProductsByType(type: String){
-        var response: MutableList<ProductResponse>
         viewModelScope.launch(Dispatchers.IO) {
-            response= repository.getProductsByType(type)
-            _productsByType.postValue(response)
+            _loadingFormState.postValue(true)
+            val response= repository.getProductsByType(type)
+            if (response!=null) {
+                _productsByType.postValue(response)
+                _loadingFormState.postValue(false)
+            }
         }
     }
 }

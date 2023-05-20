@@ -38,6 +38,17 @@ class ContentFragment : Fragment() {
         viewModel.productsByType.observe(viewLifecycleOwner) { modelList ->
             updateAdapter(binding, modelList)
             }
+
+        viewModel.loadingFormState.observe(viewLifecycleOwner){isLoading ->
+            if(isLoading) {
+                binding.pbDetail.visibility = View.VISIBLE
+                binding.tvLoading.text= "Cargando..."
+                binding.tvLoading.visibility=View.VISIBLE
+            }else{
+                binding.pbDetail.visibility = View.GONE
+                binding.tvLoading.visibility=View.GONE
+            }
+        }
         }
 
     private fun updateAdapter(binding: FragmentContentBinding, modelList: MutableList<ProductResponse>) {
