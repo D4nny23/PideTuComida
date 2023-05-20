@@ -2,7 +2,6 @@ package com.example.pidetucomida.api
 
 import com.example.pidetucomida.model.client.ClientDto
 import com.example.pidetucomida.model.client.ClientResponse
-import com.example.pidetucomida.model.product.ProductResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

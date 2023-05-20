@@ -11,6 +11,7 @@ import com.example.pidetucomida.R
 import com.example.pidetucomida.ui.register.RegisterActivity
 import com.example.pidetucomida.databinding.ActivityMainBinding
 import com.example.pidetucomida.ui.content.ContentScreenActivity
+import com.example.pidetucomida.utils.Constants
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupListener() {
-        binding.mbCheckIn.setOnClickListener {
+        binding.mbRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
 
             binding.etEmail.setText("")
@@ -39,12 +40,15 @@ class MainActivity : AppCompatActivity() {
 
         binding.mbEnter.setOnClickListener {
             viewModel.findClientByEmail(
-                binding.etEmail.text.toString(), binding.etPass.text.toString()
-            ).observe(this) { success ->
-                if (success) {
-                    startActivity(Intent(this, ContentScreenActivity::class.java))
+                this, binding.etEmail.text.toString(), binding.etPass.text.toString()
+            ) { isCorrectPassword ->
+                if (isCorrectPassword) {
+                    val i = Intent(this, ContentScreenActivity::class.java)
+                    i.putExtra(Constants.LOGGEDIN, true)
+                    startActivity(i)
                 } else {
-                    Toast.makeText(this, "Correo o contrseña incorrecto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
             }
@@ -52,9 +56,11 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.mbSkip.setOnClickListener {
+            intent.putExtra(Constants.LOGGEDIN, false)
             startActivity(Intent(this, ContentScreenActivity::class.java))
         }
     }
+
 }
 
 

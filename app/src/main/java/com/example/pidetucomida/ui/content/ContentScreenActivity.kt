@@ -1,22 +1,23 @@
 package com.example.pidetucomida.ui.content
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
+import androidx.appcompat.app.AlertDialog
 import com.example.pidetucomida.R
 import com.example.pidetucomida.databinding.ActivityContentScreenBinding
-import com.example.pidetucomida.model.product.ProductResponse
 import com.example.pidetucomida.ui.content.adapter.ViewPagerAdapterContent
+import com.example.pidetucomida.ui.login.MainActivity
+import com.example.pidetucomida.utils.Constants
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ContentScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityContentScreenBinding
+    private var isLogged=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility =
@@ -28,6 +29,8 @@ class ContentScreenActivity : AppCompatActivity() {
         setupToolbar()
         setupView()
 
+        isLogged=intent.getBooleanExtra(Constants.LOGGEDIN, false)
+
     }
 
     private fun setupToolbar(){
@@ -35,7 +38,7 @@ class ContentScreenActivity : AppCompatActivity() {
         binding.toolBar.tvTitle.setTextAppearance(this, R.style.TitleStyle)
 
         binding.toolBar.ibBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            onBackPressed()
         }
     }
 
@@ -53,6 +56,25 @@ class ContentScreenActivity : AppCompatActivity() {
             tab.setText(adapter.getPageTitleId(position))
         }.attach()
 
+    }
+
+    override fun onBackPressed() {
+        if (isLogged) {
+            val builder = AlertDialog.Builder(this,  R.style.AlertDialogTheme)
+            builder.setTitle("Cerrar sesión")
+            builder.setMessage("¿Estás seguro de que quieres cerrar sesión?")
+            builder.setPositiveButton("Sí") { _, _ ->
+                startActivity(Intent(this, MainActivity::class.java ))
+            }
+            builder.setNegativeButton("No") { _, _ ->
+
+            }
+            val dialog = builder.create()
+            dialog.show()
+
+        }else{
+            onBackPressedDispatcher.onBackPressed()
+        }
     }
 
 }

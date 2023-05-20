@@ -5,4 +5,23 @@
         <item name="colorAccent">@color/green</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <!-- Estilos personalizados para los botones -->
+        <item name="buttonBarPositiveButtonStyle">@style/DialogPositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogNegativeButtonStyle</item>
+    </style>
+
+    <style name="DialogPositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <!-- Estilos personalizados para el botón positivo -->
+        <!-- Por ejemplo, ajustar el color de fondo o el color del texto -->
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="DialogNegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <!-- Estilos personalizados para el botón negativo -->
+        <!-- Por ejemplo, ajustar el color de fondo o el color del texto -->
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+
 </resources>
