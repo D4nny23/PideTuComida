@@ -25,6 +25,10 @@ class ProductsViewHolder private constructor(
         binding.tv1.text = model.nombre
         binding.tv2.text = "Precio: "+ model.precio.toString()+"€"
 
+        binding.btnMoreInf.setOnClickListener {
+            listener.onClick(model)
+        }
+
     }
 
     companion object {
@@ -37,6 +41,7 @@ class ProductsViewHolder private constructor(
 
 
     interface OnClickListener {
+        fun onClick(model: ProductResponse)
 //        fun onUpdateItems(mutableList: MutableList<ProductResponse>)
     }
 }

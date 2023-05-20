@@ -8,6 +8,7 @@
     android:layout_marginVertical="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bordercardview">
@@ -45,33 +46,22 @@
             android:id="@+id/tv2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/tv3"
+            app:layout_constraintBottom_toTopOf="@id/btnMoreInf"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/imageView2"
             app:layout_constraintTop_toBottomOf="@id/tv1"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"/>
 
-        <TextView
-            android:id="@+id/tv3"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMoreInf"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Hola"
-            app:layout_constraintBottom_toTopOf="@id/tv4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageView2"
             app:layout_constraintTop_toBottomOf="@id/tv2"
-            android:layout_marginLeft="50dp"/>
-
-        <TextView
-            android:id="@+id/tv4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Hola"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:backgroundTint="@color/green"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv3"
-            android:layout_marginLeft="50dp"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Ver más"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

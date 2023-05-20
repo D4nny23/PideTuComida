@@ -1,5 +1,7 @@
 package com.example.pidetucomida.model.product
 
+import java.io.Serializable
+
 data class ProductResponse(
     val img: ByteArray,
     val idIngrediente: Int,
@@ -7,4 +9,4 @@ data class ProductResponse(
     val nombre: String,
     val precio: Double,
     val tipo: String
-)
+): Serializable

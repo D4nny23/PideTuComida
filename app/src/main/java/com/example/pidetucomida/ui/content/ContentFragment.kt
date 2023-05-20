@@ -1,5 +1,6 @@
 package com.example.pidetucomida.ui.content
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pidetucomida.databinding.FragmentContentBinding
 import com.example.pidetucomida.model.product.ProductResponse
 import com.example.pidetucomida.ui.content.adapter.ProductsAdapter
+import com.example.pidetucomida.ui.detail.DetailActivity
+import com.example.pidetucomida.utils.Constants
 
 class ContentFragment : Fragment() {
 
@@ -68,14 +71,12 @@ class ContentFragment : Fragment() {
             requireContext(),
             object : ProductsViewHolder.OnClickListener {
 
-//                override fun onClick(model: TouristResourceModel) {
-//                    val intent = Intent(requireContext(), DetailMenuActivity::class.java)
-//                    intent.putExtra(TypeResource.TOURIST_RESOURCE)
-//                    intent.putExtra(Constants.INTENT_DETAIL_NEWS_IMAGE, model.image)
-//                    intent.putExtra(Constants.INTENT_DETAIL_RESOURCE_ID, model.id)
-//                    startActivity(intent)
-//                }
-//
+                override fun onClick(model: ProductResponse) {
+                    val intent = Intent(requireContext(), DetailActivity::class.java)
+                    intent.putExtra(Constants.PRODUCT_RESPONSE, model)
+                    startActivity(intent)
+                }
+
 //                override fun onClickFavorite(id: String, isFavorite: Boolean) {
 //                    viewModel.onFavoriteResource(id, isFavorite)
 //                }
