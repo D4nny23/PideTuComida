@@ -73,7 +73,7 @@ class ContentFragment : Fragment() {
 
                 override fun onClick(model: ProductResponse) {
                     val intent = Intent(requireContext(), DetailActivity::class.java)
-                    intent.putExtra(Constants.PRODUCT_RESPONSE, model)
+                    intent.putExtra(Constants.PRODUCT_ID, model.idProducto)
                     startActivity(intent)
                 }
 

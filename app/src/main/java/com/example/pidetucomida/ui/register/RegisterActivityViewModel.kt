@@ -10,18 +10,17 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pidetucomida.R
-import com.example.pidetucomida.data.Repository
+import com.example.pidetucomida.data.RepositoryUsers
 import com.example.pidetucomida.databinding.ActivityRegisterBinding
 import com.example.pidetucomida.model.client.ClientDto
 import com.example.pidetucomida.utils.UtilsChyper
-import com.example.pidetucomida.utils.UtilsRetrofit
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
 
 class RegisterActivityViewModel : ViewModel() {
     private var client: ClientDto= ClientDto()
-    private val repository = Repository()
+    private val repository = RepositoryUsers()
     @SuppressLint("UseCompatTextViewDrawableApis")
     @RequiresApi(Build.VERSION_CODES.M)
     fun setupEmail(context: Context, binding: ActivityRegisterBinding, background: Int):Boolean {

@@ -13,14 +13,6 @@ interface ApiService {
     @POST("resources/api/insert")
     suspend fun createClient(@Body client: ClientDto): Response<Boolean>
 
-
     @GET
     suspend fun getClient(@Url url:String):ClientResponse
-
-    @GET
-    suspend fun getProducts(@Url url:String):MutableList<ProductResponse>
-
-    @GET
-    suspend fun getProductsByType(@Url url:String):MutableList<ProductResponse>
-
 }

@@ -4,30 +4,31 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pidetucomida.data.Repository
-import com.example.pidetucomida.databinding.ActivityMainBinding
-import com.example.pidetucomida.model.client.ClientDto
-import com.example.pidetucomida.model.client.ClientResponse
-import com.example.pidetucomida.utils.UtilsChyper
+import com.example.pidetucomida.data.RepositoryUsers
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.mindrot.jbcrypt.BCrypt
 
 class MainActivityViewModel : ViewModel() {
-    private val repository = Repository();
+    private val repository = RepositoryUsers();
     fun findClientByEmail(email: String, pass: String): LiveData<Boolean> {
         val result = MutableLiveData<Boolean>()
         viewModelScope.launch {
-            try {
-                val response = repository.login(email)
+            withContext(Dispatchers.IO){
+                try {
+                    val response = repository.login(email)
 
-                response.let {
-                    result.value = BCrypt.checkpw(pass, response.pass)
+                    response.let {
+                        result.value = BCrypt.checkpw(pass, response.pass)
+                    }
+                } catch (e: Exception) {
+                    result.value = false
                 }
-            } catch (e: Exception) {
-                result.value = false
             }
-        }
 
+
+            }
         return result
     }
 
