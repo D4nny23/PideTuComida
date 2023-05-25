@@ -1,6 +1,5 @@
 package com.example.pidetucomida.ui.detail
 
-import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,9 +13,6 @@ import com.example.pidetucomida.R
 import com.example.pidetucomida.databinding.ActivityDetailBinding
 import com.example.pidetucomida.model.Ingredient.IngredientResponse
 import com.example.pidetucomida.model.product.ProductResponse
-import com.example.pidetucomida.ui.content.ContentFragment
-import com.example.pidetucomida.ui.content.adapter.ProductsAdapter
-import com.example.pidetucomida.ui.content.adapter.ProductsViewHolder
 import com.example.pidetucomida.ui.detail.adapter.IngredientsAdapter
 import com.example.pidetucomida.utils.Constants
 
@@ -38,6 +34,7 @@ class DetailActivity : AppCompatActivity() {
         val productId = intent.getIntExtra(Constants.PRODUCT_ID, 0)
         viewModel.searchProductById(productId)
         viewModel.searchIngredientsByIdProduct(productId)
+        setupListener()
 
     }
 
@@ -94,5 +91,11 @@ class DetailActivity : AppCompatActivity() {
             this
         )
         binding.rvIngredients.adapter = myIngredientsAdapter
+    }
+
+    private fun setupListener(){
+        binding.floatingActionButton.setOnClickListener{
+
+        }
     }
 }
