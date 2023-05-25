@@ -25,9 +25,9 @@ class RegisterActivityViewModel : ViewModel() {
     @RequiresApi(Build.VERSION_CODES.M)
     fun setupEmail(context: Context, binding: ActivityRegisterBinding, background: Int):Boolean {
         if (binding.etEmail.text.toString().isEmpty()) {
-            setError(binding.tiEmail, context,"Campo obligatorio",background,binding.etEmail)
+            setError(binding.tiEmail, context,context.getString(R.string.obligatory_field),background,binding.etEmail)
         } else if (!binding.etEmail.text.toString().contains('@')) {
-            setError(binding.tiEmail,context,"Este campo debe contener '@'",background,binding.etEmail)
+            setError(binding.tiEmail,context,context.getString(R.string.containts_at),background,binding.etEmail)
         } else {
             removeError(binding.tiEmail,context,binding.etEmail)
             client.correo=binding.etEmail.text.toString()
@@ -45,9 +45,9 @@ class RegisterActivityViewModel : ViewModel() {
         val containsSpecialChars = binding.etPassword.text?.matches(".*[^A-Za-z0-9].*".toRegex())
 
         if (binding.etPassword.text.toString().isEmpty()) {
-            setError(binding.tiPass, context ,"Campo obligatorio", background, binding.etPassword)
+            setError(binding.tiPass, context ,context.getString(R.string.obligatory_field), background, binding.etPassword)
         } else if (containsLetterUpperCase == false || containsNumbers == false || containsSpecialChars == false) {
-            setError(binding.tiPass, context ,"La contraseña debe contener numeros, caracteres especiales y mayúsculas", background, binding.etPassword)
+            setError(binding.tiPass, context ,context.getString(R.string.containts_numbers_caps_specialcharacters), background, binding.etPassword)
         } else {
             removeError(binding.tiPass, context,binding.etPassword)
             response=true
@@ -64,9 +64,9 @@ class RegisterActivityViewModel : ViewModel() {
     fun setupRepeatPassword(context: Context, binding: ActivityRegisterBinding, background: Int): Boolean {
         var response=false
         if (binding.etRepeatPass.text.toString().isEmpty()) {
-            setError(binding.tiRepeatPass, context ,"Campo obligatorio", background, binding.etRepeatPass)
+            setError(binding.tiRepeatPass, context ,context.getString(R.string.obligatory_field), background, binding.etRepeatPass)
         } else if (binding.etRepeatPass.text.toString() != binding.etPassword.text.toString()) {
-            setError(binding.tiRepeatPass, context ,"Las contraseñas deben ser iguales", background, binding.etRepeatPass)
+            setError(binding.tiRepeatPass, context ,context.getString(R.string.same_password), background, binding.etRepeatPass)
         } else {
             removeError(binding.tiRepeatPass, context,binding.etRepeatPass)
             response= true
@@ -79,9 +79,9 @@ class RegisterActivityViewModel : ViewModel() {
     fun setupName(context: Context, binding: ActivityRegisterBinding, background: Int):Boolean {
         val containsSpecialChars = binding.etName.text?.matches(".*[^A-Za-z0-9].*".toRegex())
         if (binding.etName.text.toString().isEmpty()) {
-            setError(binding.tiName, context ,"Campo obligatorio", background, binding.etName)
+            setError(binding.tiName, context ,context.getString(R.string.obligatory_field), background, binding.etName)
         } else if (containsSpecialChars==true) {
-            setError(binding.tiName, context ,"El nombre no puede contener caracteres especiales", background, binding.etName)
+            setError(binding.tiName, context ,context.getString(R.string.name_no_contains_special_characters), background, binding.etName)
         } else {
             removeError(binding.tiName, context,binding.etName)
             client.nombre= binding.etName.text.toString()
@@ -95,9 +95,9 @@ class RegisterActivityViewModel : ViewModel() {
     fun setupLastName(context: Context, binding: ActivityRegisterBinding, background: Int):Boolean {
         val containsSpecialChars = binding.etLastName.text?.matches(".*[^A-Za-z0-9].*".toRegex())
         if (binding.etLastName.text.toString().isEmpty()) {
-            setError(binding.tiLastName, context ,"Campo obligatorio", background, binding.etLastName)
+            setError(binding.tiLastName, context ,context.getString(R.string.obligatory_field), background, binding.etLastName)
         } else if (containsSpecialChars==true) {
-            setError(binding.tiLastName, context ,"El apellid no puede contener caracteres especiales", background, binding.etLastName)
+            setError(binding.tiLastName, context ,context.getString(R.string.lastname_no_contains_special_characters), background, binding.etLastName)
         } else {
             removeError(binding.tiLastName, context,binding.etLastName)
             client.apellido= binding.etLastName.text.toString()
@@ -111,9 +111,9 @@ class RegisterActivityViewModel : ViewModel() {
     fun setupAdress(context: Context, binding: ActivityRegisterBinding, background: Int):Boolean {
         val containsSpecialChars = binding.etAdress.text?.matches(".*[^A-Za-z0-9áéíóúÁÉÍÓÚüÜ ,].*".toRegex())
         if (binding.etAdress.text.toString().isEmpty()) {
-            setError(binding.tiAdress, context ,"Campo obligatorio", background, binding.etAdress)
+            setError(binding.tiAdress, context ,context.getString(R.string.obligatory_field), background, binding.etAdress)
         } else if (containsSpecialChars==true) {
-            setError(binding.tiAdress, context ,"La dirección no puede contener caracteres especiales", background, binding.etAdress)
+            setError(binding.tiAdress, context ,context.getString(R.string.address_no_contains_special_characters), background, binding.etAdress)
         } else {
             removeError(binding.tiAdress, context,binding.etAdress)
             client.direccionEnvio= binding.etAdress.text.toString()
@@ -127,9 +127,9 @@ class RegisterActivityViewModel : ViewModel() {
     @RequiresApi(Build.VERSION_CODES.M)
     fun setupNumberPhone(context: Context, binding: ActivityRegisterBinding, background: Int):Boolean {
         if (binding.etNumberPhone.text.toString().isEmpty()) {
-            setError(binding.tiNumberPhone, context ,"Campo obligatorio", background, binding.etNumberPhone)
+            setError(binding.tiNumberPhone, context ,context.getString(R.string.obligatory_field), background, binding.etNumberPhone)
         } else if (binding.etNumberPhone.text.toString().length!=9){
-            setError(binding.tiNumberPhone, context ,"Este campo debe tener 9 carácteres", background, binding.etNumberPhone)
+            setError(binding.tiNumberPhone, context ,context.getString(R.string.number_phone_contains_9characters), background, binding.etNumberPhone)
         }else{
             removeError(binding.tiAdress, context,binding.etAdress)
             client.telefono= binding.etNumberPhone.text.toString()
@@ -168,10 +168,10 @@ class RegisterActivityViewModel : ViewModel() {
                 if (response.isSuccessful) {
                     Toast.makeText(context, "Cliente añadido exitosamente", Toast.LENGTH_SHORT).show()
                 } else {
-                    println("Hubo un error al añadir el cliente.")
+                    Toast.makeText(context, "Hubo un error al añadir el cliente", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                println("Hubo una excepción al añadir el cliente: $e")
+                Toast.makeText(context, "Hubo un error al añadir el cliente por parte del servidor", Toast.LENGTH_SHORT).show()
             }
         }
     }

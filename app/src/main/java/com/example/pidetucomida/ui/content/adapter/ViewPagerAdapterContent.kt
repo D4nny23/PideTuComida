@@ -21,12 +21,4 @@ class ViewPagerAdapterContent(fm: FragmentManager, lifecycle: Lifecycle) : Fragm
     }
     fun getPageTitleId(position: Int)= mFragmentTitleList[position]
 
-    fun setBackground(position: Int): Int = when(getPageTitleId(position)){
-        R.string.burguers ->R.color.dark_red
-        R.string.pizza ->R.color.gray
-        R.string.Kebab ->R.color.purple_200
-        R.string.comida_de_la_casa ->R.color.black
-        else -> R.color.black
-    }
-
 }

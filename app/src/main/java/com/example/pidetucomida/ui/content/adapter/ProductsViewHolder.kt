@@ -1,4 +1,4 @@
-package com.example.pidetucomida.ui.content
+package com.example.pidetucomida.ui.content.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

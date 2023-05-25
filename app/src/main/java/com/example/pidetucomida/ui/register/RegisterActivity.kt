@@ -35,7 +35,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun setupToolBar() {
         binding.toolBar.tvTitle.visibility = View.VISIBLE
-        binding.toolBar.tvTitle.text = "Registro"
+        binding.toolBar.tvTitle.text = getString(R.string.label_register)
         binding.toolBar.tvTitle.setTextAppearance(this, R.style.TitleStyle)
 
         binding.toolBar.ibBack.setOnClickListener {

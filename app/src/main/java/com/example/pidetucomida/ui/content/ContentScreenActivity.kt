@@ -44,10 +44,11 @@ class ContentScreenActivity : AppCompatActivity() {
 
     private fun setupView(){
         val adapter = ViewPagerAdapterContent(supportFragmentManager, lifecycle)
-        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), "Hamburguesa"), R.string.burguers)
-        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), "Kebab"), R.string.Kebab)
-        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), "Pizza"), R.string.pizza)
-        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), "De la casa"), R.string.comida_de_la_casa)
+        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.burguer)), R.string.burguers)
+        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.Kebab)), R.string.Kebab)
+        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.pizza)), R.string.pizza)
+        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.patatas)), R.string.patatas)
+        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.drink)), R.string.drinks)
 
         binding.wpMain.adapter=adapter
         binding.tlMain.tabMode= TabLayout.MODE_SCROLLABLE
@@ -61,12 +62,14 @@ class ContentScreenActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (isLogged) {
             val builder = AlertDialog.Builder(this,  R.style.AlertDialogTheme)
-            builder.setTitle("Cerrar sesión")
-            builder.setMessage("¿Estás seguro de que quieres cerrar sesión?")
-            builder.setPositiveButton("Sí") { _, _ ->
-                startActivity(Intent(this, MainActivity::class.java ))
+            builder.setTitle(R.string.logout)
+            builder.setMessage(R.string.confirm_logout)
+            builder.setPositiveButton(R.string.yes) { _, _ ->
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
             }
-            builder.setNegativeButton("No") { _, _ ->
+            builder.setNegativeButton(R.string.no) { _, _ ->
 
             }
             val dialog = builder.create()

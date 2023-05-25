@@ -13,11 +13,33 @@
     <string name="adress">Dirección</string>
     <string name="number_phone">Número de telefono</string>
     <string name="repeat_pass">Repite contraseña</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="burguers">Hamburguesas</string>
+    <string name="burguer">Hamburguesa</string>
     <string name="pizza">Pizza</string>
-    <string name="Kebab">kebab</string>
-    <string name="comida_de_la_casa">De la casa</string>
+    <string name="Kebab">Kebab</string>
+    <string name="patatas">Patatas</string>
+    <string name="drinks">Refrescos</string>
+    <string name="drink">Refresco</string>
+    <string name="loading">Cargando</string>
+    <string name="incorrect_user_password">Usuario o contraseña incorrectos</string>
+    <string name="obligatory_field">Campo obligatorio</string>
+    <string name="containts_at">Este campo debe contener "'@'"</string>
+    <string name="containts_numbers_caps_specialcharacters">La contraseña debe contener numeros, caracteres especiales y mayúsculas</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="same_password">Las contraseñas deben ser iguales</string>
+    <string name="name_no_contains_special_characters">El nombre no puede contener caracteres especiales</string>
+    <string name="lastname_no_contains_special_characters">El apellido no puede contener caracteres especiales</string>
+    <string name="address_no_contains_special_characters">La dirección no puede contener caracteres especiales</string>
+    <string name="label_register">Registro</string>
+    <string name="euro">€</string>
+    <string name="ingredients">Ingredientes</string>
+
+
+
+    <string name="confirm_logout">¿Estás seguro de que quieres cerrar sesión?</string>
+    <string name="number_phone_contains_9characters">Este campo debe tener 9 carácteres</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
 
 
 </resources>

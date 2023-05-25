@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pidetucomida.model.product.ProductResponse
-import com.example.pidetucomida.ui.content.ProductsViewHolder
 
 class ProductsAdapter(
     private val modelList: MutableList<ProductResponse>,
