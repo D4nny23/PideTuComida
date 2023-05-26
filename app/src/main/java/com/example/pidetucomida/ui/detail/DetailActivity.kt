@@ -69,7 +69,6 @@ class DetailActivity : AppCompatActivity() {
         viewModel.loadingFormState.observe(this) { isLoading ->
             if(isLoading) {
                 binding.pbDetail.visibility = View.VISIBLE
-                binding.tvLoading.text= getString(R.string.loading)
                 binding.tvLoading.visibility=View.VISIBLE
             }else{
                 binding.pbDetail.visibility = View.GONE
