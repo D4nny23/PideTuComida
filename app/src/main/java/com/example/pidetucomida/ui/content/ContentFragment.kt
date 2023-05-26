@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.pidetucomida.R
 import com.example.pidetucomida.databinding.FragmentContentBinding
 import com.example.pidetucomida.model.product.ProductResponse
 import com.example.pidetucomida.ui.content.adapter.ProductsAdapter
+import com.example.pidetucomida.ui.content.adapter.ProductsViewHolder
 import com.example.pidetucomida.ui.detail.DetailActivity
 import com.example.pidetucomida.utils.Constants
 
@@ -42,7 +44,7 @@ class ContentFragment : Fragment() {
         viewModel.loadingFormState.observe(viewLifecycleOwner){isLoading ->
             if(isLoading) {
                 binding.pbDetail.visibility = View.VISIBLE
-                binding.tvLoading.text= "Cargando..."
+                binding.tvLoading.text= getString(R.string.loading)
                 binding.tvLoading.visibility=View.VISIBLE
             }else{
                 binding.pbDetail.visibility = View.GONE

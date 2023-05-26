@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     i.putExtra(Constants.LOGGEDIN, true)
                     startActivity(i)
                 } else {
-                    Toast.makeText(this, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT)
+                    Toast.makeText(this, getString(R.string.incorrect_user_password), Toast.LENGTH_SHORT)
                         .show()
                 }
 

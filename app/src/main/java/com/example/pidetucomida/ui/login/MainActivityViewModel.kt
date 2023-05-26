@@ -15,7 +15,7 @@ import org.mindrot.jbcrypt.BCrypt
 class MainActivityViewModel : ViewModel() {
     private val repository = RepositoryUsers();
 
-    private val _client =MutableLiveData<Boolean>()
+    private val _client = MutableLiveData<Boolean>()
     val client: LiveData<Boolean> = _client
     fun findClientByEmail(
         context: Context,
@@ -23,15 +23,13 @@ class MainActivityViewModel : ViewModel() {
         pass: String,
         callback: (Boolean) -> Unit
     ) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                try {
-                    val response = repository.login(email)
-                    val isCorrectPassword = BCrypt.checkpw(pass, response.pass)
-                    callback(isCorrectPassword)
-                } catch (e: Exception) {
-                    Toast.makeText(context, "Hubo un error", Toast.LENGTH_SHORT).show()
-                }
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = repository.login(email)
+                val isCorrectPassword = BCrypt.checkpw(pass, response.pass)
+                callback(isCorrectPassword)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Hubo un error", Toast.LENGTH_SHORT).show()
             }
         }
     }
