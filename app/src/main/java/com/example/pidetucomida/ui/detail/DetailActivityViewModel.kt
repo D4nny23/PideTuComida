@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.pidetucomida.data.RepositoryCartProduct
 import com.example.pidetucomida.data.RepositoryIngredient
 import com.example.pidetucomida.data.RepositoryProduct
 import com.example.pidetucomida.model.Ingredient.IngredientResponse
@@ -11,7 +12,7 @@ import com.example.pidetucomida.model.product.ProductResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DetailActivityViewModel : ViewModel() {
+class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct) : ViewModel() {
 
     private val _productsById =MutableLiveData<ProductResponse>()
     val productsById: LiveData<ProductResponse> = _productsById
@@ -37,6 +38,12 @@ class DetailActivityViewModel : ViewModel() {
         viewModelScope.launch (Dispatchers.IO){
             val response= RepositoryIngredient().getIngredientsByIdProduct(id)
             _ingByProduct.postValue(response)
+        }
+    }
+
+    fun saveProduct(product: ProductResponse){
+        viewModelScope.launch {
+            repositoryCart.insertProduct(product)
         }
     }
 }
