@@ -6,6 +6,7 @@ import com.example.pidetucomida.model.Product
 
 @Entity
 data class ProductEntity (val img: ByteArray,
+                          @PrimaryKey(autoGenerate = false)
                           val idProducto: Int,
                           val nombre: String,
                           val precio: Double,
