@@ -22,6 +22,7 @@ import com.example.pidetucomida.ui.content.ContentFragment
 import com.example.pidetucomida.ui.content.ContentScreenActivity
 import com.example.pidetucomida.ui.content.FragmentContentViewModel
 import com.example.pidetucomida.ui.detail.adapter.IngredientsAdapter
+import com.example.pidetucomida.ui.login.MainActivity
 import com.example.pidetucomida.utils.Constants
 
 class DetailActivity : AppCompatActivity() {
@@ -95,7 +96,9 @@ class DetailActivity : AppCompatActivity() {
         viewModel.isSaved.observe(this){ isSaved ->
             if (isSaved){
                 Toast.makeText(this, "Producto guardado correctamente", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this, ContentScreenActivity::class.java))
+                val intent = Intent(this, ContentScreenActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
             }else{
                 Toast.makeText(this, "Producto no guardado", Toast.LENGTH_SHORT).show()
             }
