@@ -6,8 +6,12 @@ import com.example.pidetucomida.model.product.ProductResponse
 import com.example.pidetucomida.model.toDomain
 
 class RepositoryCartProduct (private val dao: ProductDao){
-    suspend fun insertProduct(product: ProductResponse){
+    suspend fun insertProduct(product: ProductResponse):Long{
         val product= product.toDomain()
-        dao.insertProduct(product.toDomain())
+        return dao.insertProduct(product.toDomain())
+    }
+
+    suspend fun returnCountProducts():Int{
+        return dao.getProductCount()
     }
 }

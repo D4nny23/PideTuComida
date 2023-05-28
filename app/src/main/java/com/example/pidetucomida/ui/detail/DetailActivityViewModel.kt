@@ -1,5 +1,6 @@
 package com.example.pidetucomida.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,9 @@ class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct)
 
     private val _ingByProduct =MutableLiveData<MutableList<IngredientResponse>>()
     val ingByProduct: LiveData<MutableList<IngredientResponse>> = _ingByProduct
+
+    private val _isSaved =MutableLiveData<Boolean>()
+    val isSaved: LiveData<Boolean> = _isSaved
 
     private val _loadingFormState= MutableLiveData<Boolean>()
     val loadingFormState: LiveData<Boolean> = _loadingFormState
@@ -43,7 +47,14 @@ class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct)
 
     fun saveProduct(product: ProductResponse){
         viewModelScope.launch {
-            repositoryCart.insertProduct(product)
+
+            val products= repositoryCart.returnCountProducts()
+            val response= repositoryCart.insertProduct(product).toInt()
+            if (response == products+1){
+                _isSaved.postValue(true)
+            }else{
+                _isSaved.postValue(false)
+            }
         }
     }
 }

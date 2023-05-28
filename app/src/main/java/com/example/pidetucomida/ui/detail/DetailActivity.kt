@@ -1,9 +1,11 @@
 package com.example.pidetucomida.ui.detail
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +18,8 @@ import com.example.pidetucomida.data.database.ProductDatabase
 import com.example.pidetucomida.databinding.ActivityDetailBinding
 import com.example.pidetucomida.model.Ingredient.IngredientResponse
 import com.example.pidetucomida.model.product.ProductResponse
+import com.example.pidetucomida.ui.content.ContentFragment
+import com.example.pidetucomida.ui.content.ContentScreenActivity
 import com.example.pidetucomida.ui.content.FragmentContentViewModel
 import com.example.pidetucomida.ui.detail.adapter.IngredientsAdapter
 import com.example.pidetucomida.utils.Constants
@@ -86,6 +90,16 @@ class DetailActivity : AppCompatActivity() {
 
         viewModel.ingByProduct.observe(this){ listIngredients ->
             getAdapter(listIngredients)
+        }
+
+        viewModel.isSaved.observe(this){ isSaved ->
+            if (isSaved){
+                Toast.makeText(this, "Producto guardado correctamente", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, ContentScreenActivity::class.java))
+            }else{
+                Toast.makeText(this, "Producto no guardado", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 
