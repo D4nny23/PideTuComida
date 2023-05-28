@@ -6,7 +6,7 @@
 
     <com.google.android.material.appbar.CollapsingToolbarLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="90dp"
         app:layout_constraintVertical_bias="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,6 +46,22 @@
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintVertical_bias="0.5"
                     app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/ibCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_cart"
+                    android:background="@color/transparent"
+                    app:layout_constraintStart_toStartOf="@+id/ibBack"
+                    app:layout_constraintEnd_toEndOf="@+id/clToolbar"
+                    app:layout_constraintTop_toTopOf="@+id/clToolbar"
+                    app:layout_constraintBottom_toBottomOf="@+id/clToolbar"
+                    app:layout_constraintHorizontal_bias="0.95"
+                    app:layout_constraintVertical_bias="0.5"
+                    android:visibility="gone"
+                    app:tint="@color/white" />
+
 
                 <TextView
                     android:id="@+id/tvTitle"
