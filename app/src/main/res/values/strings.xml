@@ -33,7 +33,7 @@
     <string name="label_register">Registro</string>
     <string name="euro">€</string>
     <string name="ingredients">Ingredientes</string>
-
+    <string name="order_summary">Resumen de pedido</string>
 
     <string name="confirm_logout">¿Estás seguro de que quieres cerrar sesión?</string>
     <string name="number_phone_contains_9characters">Este campo debe tener 9 carácteres</string>

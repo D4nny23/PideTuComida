@@ -1,6 +1,8 @@
 package com.example.pidetucomida.ui.cart
 
-class CartActivityViewModel {
+import androidx.lifecycle.ViewModel
+
+class CartActivityViewModel : ViewModel(){
 
 
 
