@@ -7,13 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.pidetucomida.databinding.RowCartProductsBinding
-import com.example.pidetucomida.databinding.RowProductsBinding
-import com.example.pidetucomida.model.Ingredient.IngredientResponse
 import com.example.pidetucomida.model.Product
-import com.example.pidetucomida.model.product.ProductResponse
 
 class CartViewHolder private constructor(
-    private val binding: RowCartProductsBinding
+    private val binding: RowCartProductsBinding, var listener: OnClickListener
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
@@ -28,14 +25,22 @@ class CartViewHolder private constructor(
         binding.tvName.text = model.nombre
         binding.tvPrice.text = "Precio: "+ model.precio.toString()+"€"
         binding.tvQuantity.text= "Cantidad: "+ model.cantidad.toString()
+        binding.ivRemove.setOnClickListener{
+            listener.onClick(model.idProducto)
+        }
 
     }
 
     companion object {
-        fun from(parent: ViewGroup): CartViewHolder {
+        fun from(parent: ViewGroup, listener: OnClickListener): CartViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = RowCartProductsBinding.inflate(inflater, parent, false)
-            return CartViewHolder(binding)
+            return CartViewHolder(binding, listener)
         }
+    }
+
+    interface OnClickListener {
+        fun onClick(id: Int)
+//        fun onUpdateItems(mutableList: MutableList<ProductResponse>)
     }
 }

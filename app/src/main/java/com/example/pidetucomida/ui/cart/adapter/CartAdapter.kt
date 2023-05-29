@@ -4,14 +4,13 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pidetucomida.model.Product
-import com.example.pidetucomida.model.product.ProductResponse
 
 class CartAdapter(
-    private val modelList: MutableList<Product>, private val context: Context
+    private val modelList: MutableList<Product>, private val context: Context,     private val listener: CartViewHolder.OnClickListener
 ) : RecyclerView.Adapter<CartViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder =
-        CartViewHolder.from(parent)
+        CartViewHolder.from(parent, listener)
 
     override fun getItemCount(): Int = modelList.size
 

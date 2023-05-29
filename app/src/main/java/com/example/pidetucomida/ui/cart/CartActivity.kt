@@ -1,6 +1,5 @@
 package com.example.pidetucomida.ui.cart
 
-import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,16 +11,9 @@ import com.example.pidetucomida.R
 import com.example.pidetucomida.data.RepositoryCartProduct
 import com.example.pidetucomida.data.database.ProductDatabase
 import com.example.pidetucomida.databinding.ActivityCartBinding
-import com.example.pidetucomida.databinding.FragmentContentBinding
 import com.example.pidetucomida.model.Product
-import com.example.pidetucomida.model.product.ProductResponse
 import com.example.pidetucomida.ui.cart.adapter.CartAdapter
-import com.example.pidetucomida.ui.content.ContentFragment
-import com.example.pidetucomida.ui.content.adapter.ProductsAdapter
-import com.example.pidetucomida.ui.content.adapter.ProductsViewHolder
-import com.example.pidetucomida.ui.detail.DetailActivity
-import com.example.pidetucomida.ui.detail.DetailActivityViewModel
-import com.example.pidetucomida.utils.Constants
+import com.example.pidetucomida.ui.cart.adapter.CartViewHolder
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
@@ -66,7 +58,6 @@ class CartActivity : AppCompatActivity() {
                 updateAdapter(productList)
                 getAdapter(productList)
                 viewModel.getTotalPrice()
-
             }
 
         }
@@ -86,7 +77,12 @@ class CartActivity : AppCompatActivity() {
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
         val myProductsAdapter = CartAdapter(
-            productList, this
+            productList, this, object : CartViewHolder.OnClickListener{
+                override fun onClick(id: Int) {
+
+                }
+
+            }
         )
         binding.rvCart.adapter = myProductsAdapter
     }
