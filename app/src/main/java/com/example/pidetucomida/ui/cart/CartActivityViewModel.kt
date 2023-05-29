@@ -43,4 +43,10 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
         }
     }
 
+    fun deleteAll() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteAll()
+        }
+    }
+
 }

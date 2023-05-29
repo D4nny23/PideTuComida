@@ -43,4 +43,8 @@ interface ProductDao {
     @Query("UPDATE productentity SET precioTotal = ROUND(CAST(precioTotal - :precio AS DECIMAL(10, 2)), 2) WHERE idProducto = :id")
     suspend fun updateTotalPriceWhenRemoveProduct(precio: Double, id: Int)
 
+    @Query("Delete from productentity")
+    suspend fun deleteAll()
+
+
 }

@@ -51,4 +51,8 @@ class RepositoryCartProduct (private val dao: ProductDao){
     suspend fun updateTotalPriceWhenRemoveProduct(precio: Double, id: Int){
         dao.updateTotalPriceWhenRemoveProduct(precio,id)
     }
+
+    suspend fun deleteAll(){
+        dao.deleteAll()
+    }
 }
