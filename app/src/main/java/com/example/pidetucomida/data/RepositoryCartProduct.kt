@@ -36,4 +36,12 @@ class RepositoryCartProduct (private val dao: ProductDao){
         return dao.getTotalPrice()
     }
 
+    suspend fun removeQuantity(id:Int){
+        dao.removeQuantity(id)
+    }
+
+    suspend fun getQuantityById(id:Int) :Int{
+       return dao.getQuantityById(id)
+    }
+
 }

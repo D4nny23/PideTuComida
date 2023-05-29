@@ -18,17 +18,28 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
     val price: LiveData<Double> = _price
     fun getProducts() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response=repository.getProducts()
+            val response = repository.getProducts()
             _products.postValue(response)
         }
     }
 
-    fun getTotalPrice(){
+    fun getTotalPrice() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response=repository.getTotalPrice()
+            val response = repository.getTotalPrice()
             _price.postValue(response)
         }
     }
 
+    fun removeProduct(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val quantity = repository.getQuantityById(id)
+            if (quantity>0){
+                repository.removeQuantity(id)
+                getProducts()
+            }else if(quantity==0){
+
+            }
+        }
+    }
 
 }

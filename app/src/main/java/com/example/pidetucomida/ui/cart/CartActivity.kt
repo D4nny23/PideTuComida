@@ -79,7 +79,7 @@ class CartActivity : AppCompatActivity() {
         val myProductsAdapter = CartAdapter(
             productList, this, object : CartViewHolder.OnClickListener{
                 override fun onClick(id: Int) {
-
+                    viewModel.removeProduct(id)
                 }
 
             }
