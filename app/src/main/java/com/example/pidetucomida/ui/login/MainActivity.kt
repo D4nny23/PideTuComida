@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         setupListener()
+        setupObservables()
     }
 
     private fun setupListener() {
@@ -39,25 +40,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.mbEnter.setOnClickListener {
-            viewModel.findClientByEmail(
-                this, binding.etEmail.text.toString(), binding.etPass.text.toString()
-            ) { isCorrectPassword ->
-                if (isCorrectPassword) {
-                    val i = Intent(this, ContentScreenActivity::class.java)
-                    i.putExtra(Constants.LOGGEDIN, true)
-                    startActivity(i)
-                } else {
-                    Toast.makeText(this, getString(R.string.incorrect_user_password), Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-            }
+            viewModel.findClientByEmail(binding.etEmail.text.toString(), binding.etPass.text.toString())
         }
 
 
         binding.mbSkip.setOnClickListener {
             intent.putExtra(Constants.LOGGEDIN, false)
             startActivity(Intent(this, ContentScreenActivity::class.java))
+        }
+    }
+
+    private fun setupObservables(){
+        viewModel.client.observe(this){ clientResponse ->
+            if (clientResponse!=null){
+                Toast.makeText(this, "Correcto", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this, "Incorrecto", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
