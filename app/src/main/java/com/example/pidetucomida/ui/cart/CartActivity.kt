@@ -81,6 +81,7 @@ class CartActivity : AppCompatActivity() {
             productList, this, object : CartViewHolder.OnClickListener{
                 override fun onClick(product:Product) {
                         viewModel.removeProduct(product.idProducto)
+                    updateAdapter(productList)
                 }
 
             }
