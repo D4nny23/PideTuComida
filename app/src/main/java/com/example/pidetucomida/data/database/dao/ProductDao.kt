@@ -26,5 +26,7 @@ interface ProductDao {
     @Query("Update productentity set cantidad= cantidad + 1 where idProducto=:idProduct")
     suspend fun updateProduct(idProduct: Int):Int
 
+    @Query("Update productentity set precioTotal= precio*cantidad where idProducto=:idProduct")
+    suspend fun updateTotalPrice(idProduct: Int):Int
 
 }

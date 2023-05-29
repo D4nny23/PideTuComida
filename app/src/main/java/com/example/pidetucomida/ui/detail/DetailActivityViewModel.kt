@@ -50,10 +50,13 @@ class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct)
             val existProduct= repositoryCart.getProductById(product.idProducto)
             if (existProduct>0){
                 repositoryCart.updateQuantity(product.idProducto)
+                repositoryCart.updateTotalPrice(product.idProducto)
                 _isSaved.postValue(true)
             }else{
                 val products= repositoryCart.returnCountProducts()
                 val response= repositoryCart.insertProduct(product).toInt()
+                repositoryCart.updateQuantity(product.idProducto)
+                repositoryCart.updateTotalPrice(product.idProducto)
                 if (response == products+1){
                     _isSaved.postValue(true)
                 }else{

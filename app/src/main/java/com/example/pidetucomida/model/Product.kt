@@ -11,7 +11,8 @@ data class Product(
     val precio: Double,
     val tipo: String,
     val descripcion: String,
-    val cantidad: Int
+    val cantidad: Int,
+    val precioTotal: Double
 )
 
-fun ProductResponse.toDomain() = Product(0, img, idProducto, nombre, precio, tipo, descripcion, 0)
+fun ProductResponse.toDomain() = Product(0, img, idProducto, nombre, precio, tipo, descripcion, 0, 0.0)

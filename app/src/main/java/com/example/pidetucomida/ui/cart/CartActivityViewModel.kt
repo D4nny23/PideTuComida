@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pidetucomida.data.RepositoryCartProduct
 import com.example.pidetucomida.model.Product
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CartActivityViewModel(private val repository: RepositoryCartProduct) : ViewModel() {
@@ -13,7 +14,7 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
     private val _products = MutableLiveData<MutableList<Product>>()
     val products: LiveData<MutableList<Product>> = _products
     fun getProducts() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val response=repository.getProducts()
             _products.postValue(response)
         }

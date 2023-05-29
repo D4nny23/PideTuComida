@@ -28,4 +28,8 @@ class RepositoryCartProduct (private val dao: ProductDao){
         return dao.updateProduct(idProduct)
     }
 
+    suspend fun updateTotalPrice(idProduct: Int){
+        dao.updateTotalPrice(idProduct)
+    }
+
 }
