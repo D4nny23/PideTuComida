@@ -14,54 +14,53 @@ import kotlinx.coroutines.launch
 
 class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct) : ViewModel() {
 
-    private val _productsById =MutableLiveData<ProductResponse>()
+    private val _productsById = MutableLiveData<ProductResponse>()
     val productsById: LiveData<ProductResponse> = _productsById
 
-    private val _ingByProduct =MutableLiveData<MutableList<IngredientResponse>>()
+    private val _ingByProduct = MutableLiveData<MutableList<IngredientResponse>>()
     val ingByProduct: LiveData<MutableList<IngredientResponse>> = _ingByProduct
 
-    private val _isSaved =MutableLiveData<Boolean>()
+    private val _isSaved = MutableLiveData<Boolean>()
     val isSaved: LiveData<Boolean> = _isSaved
 
-    private val _loadingFormState= MutableLiveData<Boolean>()
+    private val _loadingFormState = MutableLiveData<Boolean>()
     val loadingFormState: LiveData<Boolean> = _loadingFormState
 
-    fun searchProductById(id:Int){
+    fun searchProductById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingFormState.postValue(true)
-            val response= RepositoryProduct().getProductsById(id)
-            if (response!=null){
+            val response = RepositoryProduct().getProductsById(id)
+            if (response != null) {
                 _productsById.postValue(response)
                 _loadingFormState.postValue(false)
             }
         }
     }
 
-    fun searchIngredientsByIdProduct(id: Int){
-        viewModelScope.launch (Dispatchers.IO){
-            val response= RepositoryIngredient().getIngredientsByIdProduct(id)
+    fun searchIngredientsByIdProduct(id: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val response = RepositoryIngredient().getIngredientsByIdProduct(id)
             _ingByProduct.postValue(response)
         }
     }
 
-    fun saveProduct(product: ProductResponse){
-        viewModelScope.launch (Dispatchers.IO){
-            val existProduct= repositoryCart.getProductById(product.idProducto)
-            if (existProduct>0){
-                repositoryCart.updateQuantity(product.idProducto)
-                repositoryCart.updateTotalPrice(product.idProducto)
+    fun saveProduct(product: ProductResponse) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val existProduct = repositoryCart.getProductById(product.idProducto)
+            val productsBefore = repositoryCart.returnCountProducts()
+            if (existProduct > 0) {
                 _isSaved.postValue(true)
-            }else{
-                val products= repositoryCart.returnCountProducts()
-                val response= repositoryCart.insertProduct(product).toInt()
-                repositoryCart.updateQuantity(product.idProducto)
-                repositoryCart.updateTotalPrice(product.idProducto)
-                if (response == products+1){
+            } else {
+                repositoryCart.insertProduct(product)
+                val productsAfter = repositoryCart.returnCountProducts()
+                if (productsAfter == productsBefore + 1) {
                     _isSaved.postValue(true)
-                }else{
+                } else {
                     _isSaved.postValue(false)
                 }
             }
+            repositoryCart.updateQuantity(product.idProducto)
+            repositoryCart.updateTotalPrice(product.idProducto)
 
         }
     }

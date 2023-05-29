@@ -15,7 +15,7 @@ interface ProductDao {
     @Query("SELECT COUNT(*) FROM productentity")
     suspend fun getProductCount(): Int
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertProduct(product: ProductEntity): Long
+    suspend fun insertProduct(product: ProductEntity)
 
     @Query("SELECT * FROM productentity")
     suspend fun getProducts(): MutableList<Product>

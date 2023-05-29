@@ -40,7 +40,6 @@ class CartActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel.getProducts()
-        viewModel.getTotalPrice()
 
         setupObservables()
         setupToolbar()
@@ -63,8 +62,13 @@ class CartActivity : AppCompatActivity() {
 
     private fun setupObservables(){
         viewModel.products.observe(this){productList->
-            updateAdapter(productList)
-            getAdapter(productList)
+            if(productList.size>0){
+                updateAdapter(productList)
+                getAdapter(productList)
+                viewModel.getTotalPrice()
+
+            }
+
         }
         viewModel.price.observe(this){price ->
             binding.tvTotal.text= "Precio total:\t"+price.toString()
