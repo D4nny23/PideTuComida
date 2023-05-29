@@ -4,11 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.example.pidetucomida.data.database.entities.ProductEntity
 import com.example.pidetucomida.model.Product
-import com.example.pidetucomida.model.product.ProductResponse
-import retrofit2.http.DELETE
 
 @Dao
 interface ProductDao {
@@ -42,4 +39,8 @@ interface ProductDao {
 
     @Query("Delete from productentity where idProducto= :id")
     suspend fun deleteProduct(id: Int)
+
+    @Query("UPDATE productentity SET precioTotal = ROUND(CAST(precioTotal - :precio AS DECIMAL(10, 2)), 2) WHERE idProducto = :id")
+    suspend fun updateTotalPriceWhenRemoveProduct(precio: Double, id: Int)
+
 }

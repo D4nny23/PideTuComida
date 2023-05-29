@@ -59,6 +59,8 @@ class CartActivity : AppCompatActivity() {
                 updateAdapter(productList)
                 getAdapter(productList)
                 viewModel.getTotalPrice()
+            }else{
+                binding.tvTotal.visibility=View.GONE
             }
 
         }
@@ -80,7 +82,7 @@ class CartActivity : AppCompatActivity() {
         val myAdapter = CartAdapter(
             productList, this, object : CartViewHolder.OnClickListener{
                 override fun onClickRemove(product:Product) {
-                        viewModel.removeProduct(product.idProducto)
+                        viewModel.removeProduct(product.idProducto, product.precio)
                     updateAdapter(productList)
                 }
 

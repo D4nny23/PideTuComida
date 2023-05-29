@@ -30,16 +30,16 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
         }
     }
 
-    fun removeProduct(id: Int) {
+    fun removeProduct(id: Int, precio: Double) {
         viewModelScope.launch(Dispatchers.IO) {
             val quantity = repository.getQuantityById(id)
-            if (quantity>1){
+            if (quantity > 1) {
+                repository.updateTotalPriceWhenRemoveProduct(precio, id)
                 repository.removeQuantity(id)
-            }else if(quantity>=1){
+            } else if (quantity >= 1) {
                 repository.deleteProduct(id)
             }
             getProducts()
-
         }
     }
 
