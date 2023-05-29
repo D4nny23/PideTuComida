@@ -46,15 +46,21 @@ class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct)
     }
 
     fun saveProduct(product: ProductResponse){
-        viewModelScope.launch {
-
-            val products= repositoryCart.returnCountProducts()
-            val response= repositoryCart.insertProduct(product).toInt()
-            if (response == products+1){
+        viewModelScope.launch (Dispatchers.IO){
+            val existProduct= repositoryCart.getProductById(product.idProducto)
+            if (existProduct>0){
+                repositoryCart.updateQuantity(product.idProducto)
                 _isSaved.postValue(true)
             }else{
-                _isSaved.postValue(false)
+                val products= repositoryCart.returnCountProducts()
+                val response= repositoryCart.insertProduct(product).toInt()
+                if (response == products+1){
+                    _isSaved.postValue(true)
+                }else{
+                    _isSaved.postValue(false)
+                }
             }
+
         }
     }
 }

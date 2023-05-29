@@ -12,7 +12,8 @@ data class ProductEntity(
     val nombre: String,
     val precio: Double,
     val tipo: String,
-    val descripcion: String
+    val descripcion: String,
+    val cantidad: Int
 )
 
-fun Product.toDomain() = ProductEntity(id,img, idProducto, nombre, precio, tipo, descripcion)
+fun Product.toDomain() = ProductEntity(id,img, idProducto, nombre, precio, tipo, descripcion, cantidad)

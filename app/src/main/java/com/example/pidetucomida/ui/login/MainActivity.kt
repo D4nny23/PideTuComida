@@ -1,5 +1,6 @@
 package com.example.pidetucomida.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -50,11 +51,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupObservables(){
-        viewModel.client.observe(this){ clientResponse ->
-            if (clientResponse!=null){
+    private fun setupObservables() {
+        viewModel.client.observe(this) { clientResponse ->
+            if (clientResponse != null) {
+                val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                clientResponse.apply {
+                    editor.putString("nombre", nombre)
+                    editor.putString("apellido", apellido)
+                    editor.putString("correo", correo)
+                    editor.putInt("id", idCliente)
+                    editor.putString("pass", pass)
+                    editor.putString("direccion", direccionEnvio)
+                    editor.putString("numero", telefono)
+                }
+                editor.apply()
                 Toast.makeText(this, "Correcto", Toast.LENGTH_SHORT).show()
-            }else{
+            } else {
                 Toast.makeText(this, "Incorrecto", Toast.LENGTH_SHORT).show()
             }
         }
