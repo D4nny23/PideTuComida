@@ -29,4 +29,6 @@ interface ProductDao {
     @Query("Update productentity set precioTotal= precio*cantidad where idProducto=:idProduct")
     suspend fun updateTotalPrice(idProduct: Int):Int
 
+    @Query("Select SUM(precioTotal) from productentity")
+    suspend fun getTotalPrice():Double
 }

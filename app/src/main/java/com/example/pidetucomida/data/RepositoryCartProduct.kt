@@ -32,4 +32,8 @@ class RepositoryCartProduct (private val dao: ProductDao){
         dao.updateTotalPrice(idProduct)
     }
 
+    suspend fun getTotalPrice(): Double{
+        return dao.getTotalPrice()
+    }
+
 }

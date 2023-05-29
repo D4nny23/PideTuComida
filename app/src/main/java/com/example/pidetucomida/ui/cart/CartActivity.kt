@@ -38,10 +38,17 @@ class CartActivity : AppCompatActivity() {
         viewModel= CartActivityViewModel(repository)
         binding= ActivityCartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         viewModel.getProducts()
+        viewModel.getTotalPrice()
 
         setupObservables()
         setupToolbar()
+        setupListener()
+    }
+
+    private fun setupListener() {
+
     }
 
     private fun setupToolbar(){
@@ -58,6 +65,9 @@ class CartActivity : AppCompatActivity() {
         viewModel.products.observe(this){productList->
             updateAdapter(productList)
             getAdapter(productList)
+        }
+        viewModel.price.observe(this){price ->
+            binding.tvTotal.text= "Precio total:\t"+price.toString()
         }
     }
 
