@@ -44,4 +44,7 @@ class RepositoryCartProduct (private val dao: ProductDao){
        return dao.getQuantityById(id)
     }
 
+    suspend fun deleteProduct(id: Int){
+        dao.deleteProduct(id)
+    }
 }

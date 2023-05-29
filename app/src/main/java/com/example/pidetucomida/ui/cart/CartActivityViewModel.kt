@@ -1,6 +1,7 @@
 package com.example.pidetucomida.ui.cart
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,8 +19,7 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
     val price: LiveData<Double> = _price
     fun getProducts() {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = repository.getProducts()
-            _products.postValue(response)
+            _products.postValue(repository.getProducts())
         }
     }
 
@@ -33,12 +33,13 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
     fun removeProduct(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val quantity = repository.getQuantityById(id)
-            if (quantity>0){
+            if (quantity>1){
                 repository.removeQuantity(id)
-                getProducts()
-            }else if(quantity==0){
-
+            }else if(quantity>=1){
+                repository.deleteProduct(id)
             }
+            getProducts()
+
         }
     }
 

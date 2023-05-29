@@ -4,6 +4,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -78,8 +79,8 @@ class CartActivity : AppCompatActivity() {
 
         val myProductsAdapter = CartAdapter(
             productList, this, object : CartViewHolder.OnClickListener{
-                override fun onClick(id: Int) {
-                    viewModel.removeProduct(id)
+                override fun onClick(product:Product) {
+                        viewModel.removeProduct(product.idProducto)
                 }
 
             }

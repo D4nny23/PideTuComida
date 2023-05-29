@@ -40,4 +40,6 @@ interface ProductDao {
     @Query("Select cantidad from productentity where idProducto = :id")
     suspend fun getQuantityById(id: Int):Int
 
+    @Query("Delete from productentity where idProducto= :id")
+    suspend fun deleteProduct(id: Int)
 }
