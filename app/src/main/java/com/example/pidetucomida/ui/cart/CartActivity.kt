@@ -77,15 +77,15 @@ class CartActivity : AppCompatActivity() {
         binding.rvCart.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
-        val myProductsAdapter = CartAdapter(
+        val myAdapter = CartAdapter(
             productList, this, object : CartViewHolder.OnClickListener{
-                override fun onClick(product:Product) {
+                override fun onClickRemove(product:Product) {
                         viewModel.removeProduct(product.idProducto)
                     updateAdapter(productList)
                 }
 
             }
         )
-        binding.rvCart.adapter = myProductsAdapter
+        binding.rvCart.adapter = myAdapter
     }
 }
