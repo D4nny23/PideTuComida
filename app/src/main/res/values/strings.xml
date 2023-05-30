@@ -37,6 +37,8 @@
     <string name="buy">Comprar</string>
     <string name="time_out_exception">Se ha agotado el tiempo de espera de respuesta</string>
     <string name="connect_exception">No se pudo establecer conexion con el servidor</string>
+    <string name="total_price">Precio total: \t\t</string>
+
 
     <string name="confirm_logout">¿Estás seguro de que quieres cerrar sesión?</string>
     <string name="number_phone_contains_9characters">Este campo debe tener 9 carácteres</string>
