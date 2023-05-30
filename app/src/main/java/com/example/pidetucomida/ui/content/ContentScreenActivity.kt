@@ -8,6 +8,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.example.pidetucomida.R
 import com.example.pidetucomida.databinding.ActivityContentScreenBinding
+import com.example.pidetucomida.ui.cart.CartActivity
 import com.example.pidetucomida.ui.content.adapter.ViewPagerAdapterContent
 import com.example.pidetucomida.ui.login.MainActivity
 import com.example.pidetucomida.utils.Constants
@@ -36,10 +37,16 @@ class ContentScreenActivity : AppCompatActivity() {
     private fun setupToolbar(){
         binding.toolBar.tvTitle.visibility = View.VISIBLE
         binding.toolBar.tvTitle.setTextAppearance(this, R.style.TitleStyle)
+        binding.toolBar.ibCart.visibility= View.VISIBLE
 
         binding.toolBar.ibBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
+        binding.toolBar.ibCart.setOnClickListener{
+            startActivity(Intent(this, CartActivity::class.java))
+        }
+
+
     }
 
     private fun setupView(){
@@ -48,7 +55,7 @@ class ContentScreenActivity : AppCompatActivity() {
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.Kebab)), R.string.Kebab)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.pizza)), R.string.pizza)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.patatas)), R.string.patatas)
-        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.drink)), R.string.drinks)
+
 
         binding.wpMain.adapter=adapter
         binding.tlMain.tabMode= TabLayout.MODE_SCROLLABLE

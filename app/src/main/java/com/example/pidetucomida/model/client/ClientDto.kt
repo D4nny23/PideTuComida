@@ -20,7 +20,7 @@ data class ClientDto(
     )
 }
 
-data class ClientResponse(val id: Int? = null,
+data class ClientResponse(val idCliente: Int,
                           var correo: String,
                           var pass: String,
                           var nombre: String,

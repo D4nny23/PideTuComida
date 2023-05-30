@@ -1,5 +1,6 @@
 package com.example.pidetucomida.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         setupListener()
+        setupObservables()
     }
 
     private fun setupListener() {
@@ -39,25 +41,35 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.mbEnter.setOnClickListener {
-            viewModel.findClientByEmail(
-                this, binding.etEmail.text.toString(), binding.etPass.text.toString()
-            ) { isCorrectPassword ->
-                if (isCorrectPassword) {
-                    val i = Intent(this, ContentScreenActivity::class.java)
-                    i.putExtra(Constants.LOGGEDIN, true)
-                    startActivity(i)
-                } else {
-                    Toast.makeText(this, getString(R.string.incorrect_user_password), Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-            }
+            viewModel.findClientByEmail(binding.etEmail.text.toString(), binding.etPass.text.toString())
         }
 
 
         binding.mbSkip.setOnClickListener {
             intent.putExtra(Constants.LOGGEDIN, false)
             startActivity(Intent(this, ContentScreenActivity::class.java))
+        }
+    }
+
+    private fun setupObservables() {
+        viewModel.client.observe(this) { clientResponse ->
+            if (clientResponse != null) {
+                val sharedPreferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                clientResponse.apply {
+                    editor.putString("nombre", nombre)
+                    editor.putString("apellido", apellido)
+                    editor.putString("correo", correo)
+                    editor.putInt("id", idCliente)
+                    editor.putString("pass", pass)
+                    editor.putString("direccion", direccionEnvio)
+                    editor.putString("numero", telefono)
+                }
+                editor.apply()
+                startActivity(Intent(this, ContentScreenActivity::class.java))
+            } else {
+                Toast.makeText(this, "Incorrecto", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

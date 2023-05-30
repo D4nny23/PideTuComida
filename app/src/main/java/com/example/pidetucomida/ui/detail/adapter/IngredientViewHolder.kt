@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.pidetucomida.databinding.RowIngredientBinding
 import com.example.pidetucomida.model.Ingredient.IngredientResponse
 
-class IngredientViewModel private constructor(
+class IngredientViewHolder private constructor(
     private val binding: RowIngredientBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
@@ -16,10 +16,10 @@ class IngredientViewModel private constructor(
     }
 
     companion object {
-        fun from(parent: ViewGroup): IngredientViewModel {
+        fun from(parent: ViewGroup): IngredientViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val binding = RowIngredientBinding.inflate(inflater, parent, false)
-            return IngredientViewModel(binding)
+            return IngredientViewHolder(binding)
         }
     }
 }

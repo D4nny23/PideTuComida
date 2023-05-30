@@ -1,18 +1,24 @@
 package com.example.pidetucomida.ui.detail
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.pidetucomida.R
+import com.example.pidetucomida.data.RepositoryCartProduct
+import com.example.pidetucomida.data.database.ProductDatabase
 import com.example.pidetucomida.databinding.ActivityDetailBinding
 import com.example.pidetucomida.model.Ingredient.IngredientResponse
 import com.example.pidetucomida.model.product.ProductResponse
+import com.example.pidetucomida.ui.content.ContentScreenActivity
 import com.example.pidetucomida.ui.detail.adapter.IngredientsAdapter
 import com.example.pidetucomida.utils.Constants
 
@@ -28,13 +34,16 @@ class DetailActivity : AppCompatActivity() {
             View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
         window.statusBarColor = Color.TRANSPARENT
 
-        viewModel = ViewModelProvider(this)[DetailActivityViewModel::class.java]
+        val db = Room.databaseBuilder(this, ProductDatabase::class.java, "Product_db").build()
+        val dao= db.dao
+        val repository= RepositoryCartProduct(dao)
+        viewModel= DetailActivityViewModel(repository)
 
         setupObservables()
         val productId = intent.getIntExtra(Constants.PRODUCT_ID, 0)
         viewModel.searchProductById(productId)
         viewModel.searchIngredientsByIdProduct(productId)
-        setupListener()
+
 
     }
 
@@ -64,12 +73,12 @@ class DetailActivity : AppCompatActivity() {
         viewModel.productsById.observe(this) { product ->
             setupViewProduct(product)
             setupToolbar(product)
+            setupListener(product)
         }
 
         viewModel.loadingFormState.observe(this) { isLoading ->
             if(isLoading) {
                 binding.pbDetail.visibility = View.VISIBLE
-                binding.tvLoading.text= getString(R.string.loading)
                 binding.tvLoading.visibility=View.VISIBLE
             }else{
                 binding.pbDetail.visibility = View.GONE
@@ -79,6 +88,18 @@ class DetailActivity : AppCompatActivity() {
 
         viewModel.ingByProduct.observe(this){ listIngredients ->
             getAdapter(listIngredients)
+        }
+
+        viewModel.isSaved.observe(this){ isSaved ->
+            if (isSaved){
+                Toast.makeText(this, "Producto guardado correctamente", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ContentScreenActivity::class.java)
+                startActivity(intent)
+                finish()
+            }else{
+                Toast.makeText(this, "Producto no guardado", Toast.LENGTH_SHORT).show()
+            }
+
         }
     }
 
@@ -93,9 +114,9 @@ class DetailActivity : AppCompatActivity() {
         binding.rvIngredients.adapter = myIngredientsAdapter
     }
 
-    private fun setupListener(){
+    private fun setupListener(product: ProductResponse){
         binding.floatingActionButton.setOnClickListener{
-
+            viewModel.saveProduct(product)
         }
     }
 }

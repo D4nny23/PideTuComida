@@ -7,14 +7,14 @@ import com.example.pidetucomida.model.Ingredient.IngredientResponse
 
 class IngredientsAdapter(
     private val modelList: MutableList<IngredientResponse>, private val context: Context
-) : RecyclerView.Adapter<IngredientViewModel>() {
+) : RecyclerView.Adapter<IngredientViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewModel =
-        IngredientViewModel.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder =
+        IngredientViewHolder.from(parent)
 
     override fun getItemCount(): Int = modelList.size
 
-    override fun onBindViewHolder(holder: IngredientViewModel, position: Int) {
+    override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
         holder.bindView(modelList[position], context)
     }
 
