@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pidetucomida.data.RepositoryProduct
 import com.example.pidetucomida.model.product.ProductResponse
+import com.example.pidetucomida.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -19,13 +20,23 @@ class FragmentContentViewModel: ViewModel() {
     private val _loadingFormState= MutableLiveData<Boolean>()
     val loadingFormState: LiveData<Boolean> = _loadingFormState
 
+    private val _setError= MutableLiveData<Int>()
+    val setError: LiveData<Int> = _setError
+
     fun getProductsByType(type: String){
         viewModelScope.launch(Dispatchers.IO) {
             _loadingFormState.postValue(true)
-            val response= repository.getProductsByType(type)
-            if (response!=null) {
-                _productsByType.postValue(response)
-                _loadingFormState.postValue(false)
+            when(val response= repository.getProductsByType(type)){
+                is Result.Success ->{
+                    val responseData = response.data
+                    _productsByType.postValue(responseData)
+                    _loadingFormState.postValue(false)
+                }
+                is Result.Error ->{
+                    val error=response.message
+                    _setError.postValue(error)
+                    _loadingFormState.postValue(false)
+                }
             }
         }
     }
