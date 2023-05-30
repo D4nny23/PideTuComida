@@ -55,7 +55,7 @@ class ContentScreenActivity : AppCompatActivity() {
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.Kebab)), R.string.Kebab)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.pizza)), R.string.pizza)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.patatas)), R.string.patatas)
-        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.drink)), R.string.drinks)
+
 
         binding.wpMain.adapter=adapter
         binding.tlMain.tabMode= TabLayout.MODE_SCROLLABLE

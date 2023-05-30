@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     editor.putString("numero", telefono)
                 }
                 editor.apply()
-                Toast.makeText(this, "Correcto", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, ContentScreenActivity::class.java))
             } else {
                 Toast.makeText(this, "Incorrecto", Toast.LENGTH_SHORT).show()
             }
