@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.mbSkip.setOnClickListener {
-            intent.putExtra(Constants.LOGGEDIN, false)
             startActivity(Intent(this, ContentScreenActivity::class.java))
         }
     }
