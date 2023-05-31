@@ -1,6 +1,5 @@
 package com.example.pidetucomida.data
 
-import android.util.Log
 import com.example.pidetucomida.R
 import com.example.pidetucomida.api.ProductService
 import com.example.pidetucomida.model.product.ProductResponse
@@ -20,24 +19,22 @@ class RepositoryProduct {
             Result.Error(R.string.time_out_exception)
         } catch (e: java.net.ConnectException) {
             Result.Error(R.string.connect_exception)
-        }
-    }
-
-    suspend fun getProductsById(id: Int): Result<ProductResponse> {
-        Log.v("****_____", "peticion")
-        return try {
-            Result.Success(apiService.getProductsById("resources/api/productos/id/$id"))
-        } catch (e: java.net.SocketTimeoutException) {
-            Result.Error(R.string.time_out_exception)
-        } catch (e: java.net.ConnectException) {
-            Log.v("****_____", "ERROR")
-            Result.Error(R.string.connect_exception)
         } catch (e: Exception) {
             Result.Error(R.string.generic_error)
         }
     }
 
-
+    suspend fun getProductsById(id: Int): Result<ProductResponse> {
+        return try {
+            Result.Success(apiService.getProductsById("resources/api/productos/id/$id"))
+        } catch (e: java.net.SocketTimeoutException) {
+            Result.Error(R.string.time_out_exception)
+        } catch (e: java.net.ConnectException) {
+            Result.Error(R.string.connect_exception)
+        } catch (e: Exception) {
+            Result.Error(R.string.generic_error)
+        }
+    }
 
 
 }

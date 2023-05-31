@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -109,6 +108,7 @@ class DetailActivity : AppCompatActivity() {
                 }
                 R.string.connect_exception -> {
                     setupView(R.string.connect_exception)
+                    binding.ivNoConnection.setImageResource(R.drawable.ic_no_connection)
                 }
                 R.string.generic_error ->{
                     setupView(R.string.generic_error)

@@ -1,6 +1,5 @@
 package com.example.pidetucomida.ui.detail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,11 +31,9 @@ class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct)
     val setError: LiveData<Int> = _setError
 
     fun searchProductById(id: Int) {
-        Log.v("*********", "Hago la llamada")
         viewModelScope.launch(Dispatchers.IO) {
             _loadingFormState.postValue(true)
             val response = RepositoryProduct().getProductsById(id)
-            Log.v("RESPUESTA", response.toString())
             when (response) {
                 is Result.Success -> {
                     val responseData = response.data
