@@ -89,6 +89,10 @@ class CartActivity : AppCompatActivity() {
                     updateAdapter(productList)
                 }
 
+                override fun onClickAdd(product: Product) {
+
+                }
+
             }
         )
         binding.rvCart.adapter = myAdapter

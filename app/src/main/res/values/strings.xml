@@ -42,6 +42,8 @@
     <string name="cash">Efectivo</string>
     <string name="comment">Comentario</string>
     <string name="way_to_pay">Forma de pago</string>
+    <string name="price">Precio: </string>
+    <string name="quantity">Cantidad: </string>
     <string name="generic_error">Ocurrió un error. Por favor, intenta nuevamente más tarde.</string>
 
 
