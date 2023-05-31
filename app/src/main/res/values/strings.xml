@@ -38,7 +38,10 @@
     <string name="time_out_exception">Timeout de conexión. Por favor, intenta nuevamente más tarde.</string>
     <string name="connect_exception">Error de conexión. Por favor, verifica tu conexión a Internet.</string>
     <string name="total_price">Precio total: \t\t</string>
-
+    <string name="card">Tarjeta</string>
+    <string name="cash">Efectivo</string>
+    <string name="comment">Comentario</string>
+    <string name="way_to_pay">Forma de pago</string>
     <string name="generic_error">Ocurrió un error. Por favor, intenta nuevamente más tarde.</string>
 
 
