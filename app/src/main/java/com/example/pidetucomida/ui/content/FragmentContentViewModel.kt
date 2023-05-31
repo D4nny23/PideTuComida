@@ -33,8 +33,7 @@ class FragmentContentViewModel: ViewModel() {
                     _loadingFormState.postValue(false)
                 }
                 is Result.Error ->{
-                    val error=response.message
-                    _setError.postValue(error)
+                    _setError.postValue(response.message)
                     _loadingFormState.postValue(false)
                 }
             }

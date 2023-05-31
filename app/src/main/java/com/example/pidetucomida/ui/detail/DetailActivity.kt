@@ -39,10 +39,11 @@ class DetailActivity : AppCompatActivity() {
         val repository= RepositoryCartProduct(dao)
         viewModel= DetailActivityViewModel(repository)
 
-        setupObservables()
+
         val productId = intent.getIntExtra(Constants.PRODUCT_ID, 0)
+        setupObservables()
         viewModel.searchProductById(productId)
-        viewModel.searchIngredientsByIdProduct(productId)
+
 
 
     }
@@ -99,8 +100,26 @@ class DetailActivity : AppCompatActivity() {
             }else{
                 Toast.makeText(this, "Producto no guardado", Toast.LENGTH_SHORT).show()
             }
-
         }
+
+        viewModel.setError.observe(this) { error ->
+            when (error) {
+                R.string.time_out_exception -> {
+                    setupView(R.string.time_out_exception)
+                }
+                R.string.connect_exception -> {
+                    setupView(R.string.connect_exception)
+                }
+                R.string.generic_error ->{
+                    setupView(R.string.generic_error)
+                }
+                else -> {
+                    binding.tvNoConnection.visibility = View.GONE
+                    binding.ivNoConnection.visibility = View.GONE
+                }
+            }
+        }
+
     }
 
     private fun getAdapter(listIngredients: MutableList<IngredientResponse>){
@@ -115,8 +134,18 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupListener(product: ProductResponse){
+        viewModel.searchIngredientsByIdProduct(product.idProducto)
         binding.floatingActionButton.setOnClickListener{
             viewModel.saveProduct(product)
         }
+    }
+
+    private fun setupView(texto: Int){
+        binding.tvNoConnection.text = getString(texto)
+        binding.tvNoConnection.visibility = View.VISIBLE
+        binding.ivNoConnection.visibility = View.VISIBLE
+        binding.tvIngredients.visibility=View.GONE
+        binding.divider.visibility=View.GONE
+        binding.divider2.visibility=View.GONE
     }
 }

@@ -1,5 +1,6 @@
 package com.example.pidetucomida.ui.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.example.pidetucomida.data.RepositoryIngredient
 import com.example.pidetucomida.data.RepositoryProduct
 import com.example.pidetucomida.model.Ingredient.IngredientResponse
 import com.example.pidetucomida.model.product.ProductResponse
+import com.example.pidetucomida.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -26,16 +28,31 @@ class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct)
     private val _loadingFormState = MutableLiveData<Boolean>()
     val loadingFormState: LiveData<Boolean> = _loadingFormState
 
+    private val _setError = MutableLiveData<Int>()
+    val setError: LiveData<Int> = _setError
+
     fun searchProductById(id: Int) {
+        Log.v("*********", "Hago la llamada")
         viewModelScope.launch(Dispatchers.IO) {
             _loadingFormState.postValue(true)
             val response = RepositoryProduct().getProductsById(id)
-            if (response != null) {
-                _productsById.postValue(response)
-                _loadingFormState.postValue(false)
+            Log.v("RESPUESTA", response.toString())
+            when (response) {
+                is Result.Success -> {
+                    val responseData = response.data
+                    _productsById.postValue(responseData)
+                    _loadingFormState.postValue(false)
+                }
+
+                is Result.Error -> {
+                    _setError.postValue(response.message)
+                    _loadingFormState.postValue(false)
+                }
             }
         }
     }
+
+
 
     fun searchIngredientsByIdProduct(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
