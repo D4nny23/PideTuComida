@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.example.pidetucomida.R
@@ -68,7 +67,6 @@ class ContentScreenActivity : AppCompatActivity() {
 
         val preferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
         val email = preferences.getString("correo", "")
-        Log.v("EMAIL:", email.toString())
         if (email!="") {
             val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
             builder.setTitle(R.string.logout)
@@ -86,7 +84,6 @@ class ContentScreenActivity : AppCompatActivity() {
             }
             val dialog = builder.create()
             dialog.show()
-
         } else {
             onBackPressedDispatcher.onBackPressed()
         }

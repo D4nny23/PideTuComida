@@ -56,4 +56,8 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
         }
     }
 
+    fun insertOrder(){
+
+    }
+
 }
