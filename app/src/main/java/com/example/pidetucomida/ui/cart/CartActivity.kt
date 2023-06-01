@@ -90,7 +90,8 @@ class CartActivity : AppCompatActivity() {
                 }
 
                 override fun onClickAdd(product: Product) {
-
+                    viewModel.addQuantityProduct(product)
+                    updateAdapter(productList)
                 }
 
             }
