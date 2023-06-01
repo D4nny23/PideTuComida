@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.pidetucomida.R
 import com.example.pidetucomida.databinding.RowCartProductsBinding
 import com.example.pidetucomida.model.Product
 
@@ -23,11 +24,17 @@ class CartViewHolder private constructor(
             .into(binding.imageView2)
 
         binding.tvName.text = model.nombre
-        binding.tvPrice.text = "Precio: "+ model.precio.toString()+"€"
-        binding.tvQuantity.text= "Cantidad: "+ model.cantidad.toString()
-        binding.ivRemove.setOnClickListener{
+        binding.tvPrice.text = context.getString(R.string.price)+ model.precio.toString()+context.getString(R.string.euro)
+        binding.tvQuantity.text= context.getString(R.string.quantity)+ model.cantidad.toString()
+        binding.ibRemove.setOnClickListener{
             listener.onClickRemove(model)
         }
+
+        binding.ibAdd.setOnClickListener{
+            listener.onClickAdd(model)
+        }
+
+
 
     }
 
@@ -41,6 +48,7 @@ class CartViewHolder private constructor(
 
     interface OnClickListener {
         fun onClickRemove(product:Product)
+        fun onClickAdd(product: Product)
 //        fun onUpdateItems(mutableList: MutableList<ProductResponse>)
     }
 }

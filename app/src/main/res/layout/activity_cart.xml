@@ -80,26 +80,115 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintBottom_toTopOf="@id/tvTotal"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/divCart"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/toolBar"
-                app:layout_constraintVertical_bias="0"/>
+                app:layout_constraintVertical_bias="0" />
+
+            <View
+                android:id="@+id/divCart"
+                android:layout_width="409dp"
+                android:layout_height="3dp"
+                android:background="@color/green"
+                app:layout_constraintBottom_toTopOf="@+id/tvWayToPay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvCart"
+                app:layout_constraintVertical_bias="0.2" />
+
+            <TextView
+                android:id="@+id/tvWayToPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/way_to_pay"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textDirection="anyRtl"
+                android:textIsSelectable="false"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@id/rgPay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divCart" />
+
+            <RadioGroup
+                android:id="@+id/rgPay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/green"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/tiComment"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divCart"
+                app:layout_constraintVertical_bias="0">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="150dp"
+                    android:buttonTint="@color/green"
+                    android:text="@string/card" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:buttonTint="@color/green"
+                    android:text="@string/cash" />
+            </RadioGroup>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tiComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/border"
+                android:hint="@string/comment"
+                android:textColorHint="@color/black"
+                app:boxBackgroundMode="none"
+                app:counterEnabled="true"
+                app:counterMaxLength="200"
+                app:hintTextColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/divCart2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rgPay">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/divCart2"
+                android:layout_width="409dp"
+                android:layout_height="3dp"
+                android:layout_margin="10dp"
+                android:background="@color/green"
+                app:layout_constraintBottom_toTopOf="@+id/tvTotal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tiComment" />
 
             <TextView
                 android:id="@+id/tvTotal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/stuffed_border"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rvCart"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:background="@drawable/stuffed_border"
-                android:gravity="center"/>
+                app:layout_constraintTop_toBottomOf="@+id/divCart2" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -109,5 +198,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:text="@string/buy"
+        android:textColor="@color/white"
         app:backgroundTint="@color/green" />
 </FrameLayout>

@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.mbSkip.setOnClickListener {
-            intent.putExtra(Constants.LOGGEDIN, false)
             startActivity(Intent(this, ContentScreenActivity::class.java))
         }
     }
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 editor.apply()
                 startActivity(Intent(this, ContentScreenActivity::class.java))
             } else {
-                Toast.makeText(this, "Incorrecto", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Correo electrónico o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
         }
     }

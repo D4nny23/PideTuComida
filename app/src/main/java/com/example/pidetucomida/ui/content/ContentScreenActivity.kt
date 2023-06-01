@@ -1,9 +1,11 @@
 package com.example.pidetucomida.ui.content
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.example.pidetucomida.R
@@ -11,14 +13,12 @@ import com.example.pidetucomida.databinding.ActivityContentScreenBinding
 import com.example.pidetucomida.ui.cart.CartActivity
 import com.example.pidetucomida.ui.content.adapter.ViewPagerAdapterContent
 import com.example.pidetucomida.ui.login.MainActivity
-import com.example.pidetucomida.utils.Constants
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ContentScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityContentScreenBinding
-    private var isLogged=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility =
@@ -30,8 +30,6 @@ class ContentScreenActivity : AppCompatActivity() {
         setupToolbar()
         setupView()
 
-        isLogged=intent.getBooleanExtra(Constants.LOGGEDIN, false)
-
     }
 
     private fun setupToolbar(){
@@ -40,7 +38,7 @@ class ContentScreenActivity : AppCompatActivity() {
         binding.toolBar.ibCart.visibility= View.VISIBLE
 
         binding.toolBar.ibBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+            onBackPressed()
         }
         binding.toolBar.ibCart.setOnClickListener{
             startActivity(Intent(this, CartActivity::class.java))
@@ -67,14 +65,21 @@ class ContentScreenActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (isLogged) {
-            val builder = AlertDialog.Builder(this,  R.style.AlertDialogTheme)
+
+        val preferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val email = preferences.getString("correo", "")
+        Log.v("EMAIL:", email.toString())
+        if (email!="") {
+            val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
             builder.setTitle(R.string.logout)
             builder.setMessage(R.string.confirm_logout)
             builder.setPositiveButton(R.string.yes) { _, _ ->
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
+                val editor=preferences.edit()
+                editor.clear()
+                editor.apply()
             }
             builder.setNegativeButton(R.string.no) { _, _ ->
 
@@ -82,7 +87,7 @@ class ContentScreenActivity : AppCompatActivity() {
             val dialog = builder.create()
             dialog.show()
 
-        }else{
+        } else {
             onBackPressedDispatcher.onBackPressed()
         }
     }

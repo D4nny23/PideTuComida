@@ -4,7 +4,6 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -69,7 +68,7 @@ class CartActivity : AppCompatActivity() {
 
         }
         viewModel.price.observe(this) { price ->
-            binding.tvTotal.text = "Precio total:\t" + price.toString()
+            binding.tvTotal.text = getString(R.string.total_price)+ price.toString()
         }
     }
 
@@ -87,6 +86,11 @@ class CartActivity : AppCompatActivity() {
             productList, this, object : CartViewHolder.OnClickListener {
                 override fun onClickRemove(product: Product) {
                     viewModel.removeProduct(product.idProducto, product.precio)
+                    updateAdapter(productList)
+                }
+
+                override fun onClickAdd(product: Product) {
+                    viewModel.addQuantityProduct(product)
                     updateAdapter(productList)
                 }
 

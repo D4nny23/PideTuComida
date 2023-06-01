@@ -43,6 +43,14 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
         }
     }
 
+    fun addQuantityProduct(product: Product) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.addQuantityProduct(product.idProducto)
+            repository.updateTotalPriceWhenAddProduct(product.precio,product.idProducto)
+            getProducts()
+        }
+    }
+
     fun deleteAll() {
         viewModelScope.launch(Dispatchers.IO) {
             repository.deleteAll()
