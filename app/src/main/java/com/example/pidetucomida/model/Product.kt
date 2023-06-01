@@ -11,7 +11,7 @@ data class Product(
     val precio: Double,
     val tipo: String,
     val descripcion: String,
-    val cantidad: Int,
+    var cantidad: Int,
     val precioTotal: Double
 )
 

@@ -20,7 +20,6 @@ import com.example.pidetucomida.model.Product
 import com.example.pidetucomida.model.order.Order
 import com.example.pidetucomida.ui.cart.adapter.CartAdapter
 import com.example.pidetucomida.ui.cart.adapter.CartViewHolder
-import com.example.pidetucomida.ui.content.ContentFragment
 import com.example.pidetucomida.ui.content.ContentScreenActivity
 import com.example.pidetucomida.ui.login.MainActivity
 
@@ -99,6 +98,12 @@ class CartActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateAdapterQuantity(position: Int, product: Product) {
+        (binding.rvCart.adapter as CartAdapter?)?.apply {
+            updateQuantity(position, product)
+        }
+    }
+
     private fun getAdapter(productList: MutableList<Product>) {
         binding.rvCart.layoutManager =
             LinearLayoutManager(this, RecyclerView.VERTICAL, false)
@@ -110,9 +115,9 @@ class CartActivity : AppCompatActivity() {
                     updateAdapter(productList)
                 }
 
-                override fun onClickAdd(product: Product) {
+                override fun onClickAdd(product: Product, position:Int) {
                     viewModel.addQuantityProduct(product)
-                    updateAdapter(productList)
+                    updateAdapterQuantity(position, product)
                 }
 
             }
