@@ -5,10 +5,12 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -22,10 +24,14 @@ import com.example.pidetucomida.ui.cart.adapter.CartAdapter
 import com.example.pidetucomida.ui.cart.adapter.CartViewHolder
 import com.example.pidetucomida.ui.content.ContentScreenActivity
 import com.example.pidetucomida.ui.login.MainActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
     private lateinit var viewModel: CartActivityViewModel
+    private var totalPrice: Double = 0.0
+    private lateinit var totalProductsInCart: ArrayList<Product>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility =
@@ -80,6 +86,7 @@ class CartActivity : AppCompatActivity() {
                 updateAdapter(productList)
                 getAdapter(productList)
                 setupListener(productList)
+                totalProductsInCart = productList as ArrayList<Product>
                 viewModel.getTotalPrice()
             } else {
                 binding.tvTotal.visibility = View.GONE
@@ -89,6 +96,16 @@ class CartActivity : AppCompatActivity() {
         viewModel.price.observe(this) { price ->
             binding.tvTotal.text =
                 getString(R.string.total_price) + price.toString() + getString(R.string.euro)
+
+            totalPrice = price
+        }
+
+        viewModel.order.observe(this) {
+            if (it) {
+                Toast.makeText(this, "Insertado", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -115,7 +132,7 @@ class CartActivity : AppCompatActivity() {
                     updateAdapter(productList)
                 }
 
-                override fun onClickAdd(product: Product, position:Int) {
+                override fun onClickAdd(product: Product, position: Int) {
                     viewModel.addQuantityProduct(product)
                     updateAdapterQuantity(position, product)
                 }
@@ -131,15 +148,26 @@ class CartActivity : AppCompatActivity() {
         return preferences.getInt("id", 0)
     }
 
-    private fun alertDialog(productList: MutableList<Product>) {
+    private fun alertDialog(productList: MutableList<Product>, selectedText: String) {
         val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
-        builder.setTitle(R.string.logout)
+        builder.setTitle(R.string.make_order)
         builder.setMessage(R.string.confirm_order)
         builder.setPositiveButton(R.string.confirm) { _, _ ->
-            startActivity(Intent(this, ContentScreenActivity::class.java))
-            viewModel.deleteAll()
-            updateAdapter(productList)
-            binding.tvTotal.visibility = View.GONE
+            lifecycleScope.launch {
+                viewModel.insertOrder(
+                    Order(
+                        getIdCliente(),
+                        binding.etComment.text.toString(),
+                        selectedText,
+                        totalPrice
+                    ), totalProductsInCart
+                )
+
+                startActivity(Intent(this@CartActivity, ContentScreenActivity::class.java))
+                viewModel.deleteAll()
+                updateAdapter(productList)
+                binding.tvTotal.visibility = View.GONE
+            }
         }
         builder.setNegativeButton(R.string.deny) { _, _ ->
 
@@ -150,16 +178,16 @@ class CartActivity : AppCompatActivity() {
 
     private fun createOrder(productList: MutableList<Product>) {
         val selectedRadioButtonId = binding.rgPay.checkedRadioButtonId
-        if(productList.size>0){
+        if (productList.size > 0) {
             if (selectedRadioButtonId != -1) {
                 val selectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
                 val selectedText = selectedRadioButton.text.toString()
-                Order(getIdCliente(), binding.etComment.text.toString(), selectedText)
-                alertDialog(productList)
+                alertDialog(productList, selectedText)
             } else {
-                Toast.makeText(this, getString(R.string.choose_way_to_pay), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.choose_way_to_pay), Toast.LENGTH_SHORT)
+                    .show()
             }
-        }else{
+        } else {
             Toast.makeText(this, getString(R.string.empty_cart), Toast.LENGTH_SHORT).show()
         }
 
