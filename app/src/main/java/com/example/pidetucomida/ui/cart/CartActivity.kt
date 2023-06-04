@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
@@ -24,14 +23,12 @@ import com.example.pidetucomida.ui.cart.adapter.CartAdapter
 import com.example.pidetucomida.ui.cart.adapter.CartViewHolder
 import com.example.pidetucomida.ui.content.ContentScreenActivity
 import com.example.pidetucomida.ui.login.MainActivity
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
     private lateinit var viewModel: CartActivityViewModel
     private var totalPrice: Double = 0.0
-    private lateinit var totalProductsInCart: ArrayList<Product>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility =
@@ -86,7 +83,6 @@ class CartActivity : AppCompatActivity() {
                 updateAdapter(productList)
                 getAdapter(productList)
                 setupListener(productList)
-                totalProductsInCart = productList as ArrayList<Product>
                 viewModel.getTotalPrice()
             } else {
                 binding.tvTotal.visibility = View.GONE
@@ -160,7 +156,7 @@ class CartActivity : AppCompatActivity() {
                         binding.etComment.text.toString(),
                         selectedText,
                         totalPrice
-                    ), totalProductsInCart
+                    ), productList as ArrayList<Product>
                 )
 
                 startActivity(Intent(this@CartActivity, ContentScreenActivity::class.java))
