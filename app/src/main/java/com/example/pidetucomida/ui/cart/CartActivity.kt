@@ -98,9 +98,9 @@ class CartActivity : AppCompatActivity() {
 
         viewModel.order.observe(this) {
             if (it) {
-                Toast.makeText(this, "Insertado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.order_placed), Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getText(R.string.order_refused), Toast.LENGTH_SHORT).show()
             }
         }
         viewModel.getProduct.observe(this) { product->

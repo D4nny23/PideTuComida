@@ -50,6 +50,8 @@
     <string name="empty_cart">Tu carrito está vacío. Agrega productos antes de realizar el pedido</string>
     <string name="choose_way_to_pay">Selecciona una forma de pago</string>
     <string name="make_order">Realizar pedido</string>
+    <string name="order_placed">Pedido realizado correctamente</string>
+    <string name="order_refused">El pedido no se pudo realizar, por favor vuelve a intentarlo</string>
 
 
     <string name="confirm_order">¿Estás seguro de que quieres realizar el pedido?</string>
