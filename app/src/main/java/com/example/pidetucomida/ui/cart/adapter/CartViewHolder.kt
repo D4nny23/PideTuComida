@@ -15,7 +15,7 @@ class CartViewHolder private constructor(
 ) : RecyclerView.ViewHolder(binding.root) {
 
 
-    fun bindView(model: Product, context: Context) {
+    fun bindView(model: Product, context: Context, position: Int) {
         Glide.with(context)
             .asBitmap()
             .load(model.img)
@@ -31,7 +31,7 @@ class CartViewHolder private constructor(
         }
 
         binding.ibAdd.setOnClickListener{
-            listener.onClickAdd(model)
+            listener.onClickAdd(model,position)
         }
 
 
@@ -48,7 +48,7 @@ class CartViewHolder private constructor(
 
     interface OnClickListener {
         fun onClickRemove(product:Product)
-        fun onClickAdd(product: Product)
+        fun onClickAdd(product: Product, position:Int)
 //        fun onUpdateItems(mutableList: MutableList<ProductResponse>)
     }
 }

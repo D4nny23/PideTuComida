@@ -62,4 +62,8 @@ class RepositoryCartProduct (private val dao: ProductDao){
     suspend fun addQuantityProduct(idProducto: Int) {
     dao.addQuantityProduct(idProducto)
     }
+
+    suspend fun getProduct(id:Int):Product{
+        return dao.getProduct(id)
+    }
 }

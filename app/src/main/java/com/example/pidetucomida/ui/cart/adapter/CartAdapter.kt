@@ -15,7 +15,7 @@ class CartAdapter(
     override fun getItemCount(): Int = modelList.size
 
     override fun onBindViewHolder(holder: CartViewHolder, position: Int) {
-        holder.bindView(modelList[position], context)
+        holder.bindView(modelList[position], context, position)
     }
 
     fun addAll(results: MutableList<Product>) {
@@ -24,5 +24,9 @@ class CartAdapter(
         modelList.addAll(results)
         notifyDataSetChanged()
     }
-
+    fun updateQuantity(position:Int, product:Product){
+        val productPosition= modelList[position]
+        productPosition.cantidad= product.cantidad
+        notifyItemChanged(position)
+    }
 }
