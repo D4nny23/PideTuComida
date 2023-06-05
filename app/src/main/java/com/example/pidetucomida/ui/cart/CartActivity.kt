@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
@@ -53,7 +54,11 @@ class CartActivity : AppCompatActivity() {
         val email = preferences.getString("correo", "")
         binding.mbBuy.setOnClickListener {
             if (email != "") {
-                createOrder(productList)
+                if (productList.size != 0) {
+                    createOrder(productList)
+                } else {
+                    Toast.makeText(this, getString(R.string.empty_cart), Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(
                     this,
@@ -86,6 +91,7 @@ class CartActivity : AppCompatActivity() {
                 viewModel.getTotalPrice()
             } else {
                 binding.tvTotal.visibility = View.GONE
+                binding.rvCart.visibility = View.GONE
             }
 
         }
@@ -103,8 +109,8 @@ class CartActivity : AppCompatActivity() {
                 Toast.makeText(this, getText(R.string.order_refused), Toast.LENGTH_SHORT).show()
             }
         }
-        viewModel.getProduct.observe(this) { product->
-            viewModel.position.observe(this){
+        viewModel.getProduct.observe(this) { product ->
+            viewModel.position.observe(this) {
                 updateAdapterQuantity(it, product)
             }
         }
@@ -129,13 +135,11 @@ class CartActivity : AppCompatActivity() {
 
         val myAdapter = CartAdapter(
             productList, this, object : CartViewHolder.OnClickListener {
-                override fun onClickRemove(product: Product) {
-                    viewModel.removeProduct(product.idProducto, product.precio)
-                    updateAdapter(productList)
+                override fun onClickRemove(product: Product, position: Int) {
+                    viewModel.removeProduct(product, position)
                 }
 
                 override fun onClickAdd(product: Product, position: Int) {
-                    viewModel.getProduct(product.idProducto)
                     viewModel.addQuantityProduct(product, position)
                 }
 
@@ -180,17 +184,13 @@ class CartActivity : AppCompatActivity() {
 
     private fun createOrder(productList: MutableList<Product>) {
         val selectedRadioButtonId = binding.rgPay.checkedRadioButtonId
-        if (productList.size > 0) {
-            if (selectedRadioButtonId != -1) {
-                val selectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
-                val selectedText = selectedRadioButton.text.toString()
-                alertDialog(productList, selectedText)
-            } else {
-                Toast.makeText(this, getString(R.string.choose_way_to_pay), Toast.LENGTH_SHORT)
-                    .show()
-            }
+        if (selectedRadioButtonId != -1) {
+            val selectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
+            val selectedText = selectedRadioButton.text.toString()
+            alertDialog(productList, selectedText)
         } else {
-            Toast.makeText(this, getString(R.string.empty_cart), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.choose_way_to_pay), Toast.LENGTH_SHORT)
+                .show()
         }
 
     }

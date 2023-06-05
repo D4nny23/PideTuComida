@@ -43,16 +43,18 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
         }
     }
 
-    fun removeProduct(id: Int, precio: Double) {
+    fun removeProduct(product: Product, position: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val quantity = repository.getQuantityById(id)
+            val quantity = repository.getQuantityById(product.idProducto)
             if (quantity > 1) {
-                repository.updateTotalPriceWhenRemoveProduct(precio, id)
-                repository.removeQuantity(id)
+                repository.removeQuantity(product.idProducto)
+                repository.updateTotalPriceWhenRemoveProduct(product.precio, product.idProducto)
+                _position.postValue(position)
+                getProduct(product.idProducto)
             } else if (quantity >= 1) {
-                repository.deleteProduct(id)
+                repository.deleteProduct(product.idProducto)
+                getProducts()
             }
-            getProducts()
         }
     }
 
@@ -62,7 +64,6 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
             repository.updateTotalPriceWhenAddProduct(product.precio,product.idProducto)
             _position.postValue(position)
             getProduct(product.idProducto)
-//            getProducts()
         }
     }
 

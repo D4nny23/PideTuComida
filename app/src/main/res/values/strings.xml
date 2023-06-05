@@ -17,9 +17,7 @@
     <string name="burguer">Hamburguesa</string>
     <string name="pizza">Pizza</string>
     <string name="Kebab">Kebab</string>
-    <string name="hotdog">Hotdogs</string>
-    <string name="drinks">Refrescos</string>
-    <string name="drink">Refresco</string>
+    <string name="hotdog">Hotdog</string>
     <string name="loading">Cargando</string>
     <string name="incorrect_user_password">Usuario o contraseña incorrectos</string>
     <string name="obligatory_field">Campo obligatorio</string>

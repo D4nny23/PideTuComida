@@ -27,7 +27,7 @@ class CartViewHolder private constructor(
         binding.tvPrice.text = context.getString(R.string.price)+ model.precio.toString()+context.getString(R.string.euro)
         binding.tvQuantity.text= context.getString(R.string.quantity)+ model.cantidad.toString()
         binding.ibRemove.setOnClickListener{
-            listener.onClickRemove(model)
+            listener.onClickRemove(model, position)
         }
 
         binding.ibAdd.setOnClickListener{
@@ -47,7 +47,7 @@ class CartViewHolder private constructor(
     }
 
     interface OnClickListener {
-        fun onClickRemove(product:Product)
+        fun onClickRemove(product:Product, position: Int)
         fun onClickAdd(product: Product, position:Int)
 //        fun onUpdateItems(mutableList: MutableList<ProductResponse>)
     }
