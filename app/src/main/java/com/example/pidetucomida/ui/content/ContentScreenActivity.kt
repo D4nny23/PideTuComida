@@ -51,7 +51,7 @@ class ContentScreenActivity : AppCompatActivity() {
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.burguer)), R.string.burguers)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.Kebab)), R.string.Kebab)
         adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.pizza)), R.string.pizza)
-        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.patatas)), R.string.patatas)
+        adapter.addFragment(ContentFragment.newInstance(mutableListOf(), getString(R.string.hotdog)), R.string.hotdog)
 
 
         binding.wpMain.adapter=adapter
