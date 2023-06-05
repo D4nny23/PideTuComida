@@ -103,6 +103,11 @@ class CartActivity : AppCompatActivity() {
                 Toast.makeText(this, "No", Toast.LENGTH_SHORT).show()
             }
         }
+        viewModel.getProduct.observe(this) { product->
+            viewModel.position.observe(this){
+                updateAdapterQuantity(it, product)
+            }
+        }
     }
 
     private fun updateAdapter(modelList: MutableList<Product>) {
@@ -115,6 +120,7 @@ class CartActivity : AppCompatActivity() {
         (binding.rvCart.adapter as CartAdapter?)?.apply {
             updateQuantity(position, product)
         }
+        viewModel.getTotalPrice()
     }
 
     private fun getAdapter(productList: MutableList<Product>) {
@@ -129,8 +135,8 @@ class CartActivity : AppCompatActivity() {
                 }
 
                 override fun onClickAdd(product: Product, position: Int) {
-                    viewModel.addQuantityProduct(product)
-                    updateAdapterQuantity(position, product)
+                    viewModel.getProduct(product.idProducto)
+                    viewModel.addQuantityProduct(product, position)
                 }
 
             }

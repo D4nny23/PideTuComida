@@ -1,5 +1,6 @@
 package com.example.pidetucomida.ui.cart
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,6 +25,11 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
     private val _order = MutableLiveData<Boolean>()
     val order: LiveData<Boolean> = _order
 
+    private val _getProduct = MutableLiveData<Product>()
+    val getProduct: LiveData<Product> = _getProduct
+
+    private val _position = MutableLiveData<Int>()
+    val position: LiveData<Int> = _position
     fun getProducts() {
         viewModelScope.launch(Dispatchers.IO) {
             _products.postValue(repository.getProducts())
@@ -50,11 +56,13 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
         }
     }
 
-    fun addQuantityProduct(product: Product) {
+    fun addQuantityProduct(product: Product, position:Int) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.addQuantityProduct(product.idProducto)
             repository.updateTotalPriceWhenAddProduct(product.precio,product.idProducto)
-            getProducts()
+            _position.postValue(position)
+            getProduct(product.idProducto)
+//            getProducts()
         }
     }
 
@@ -88,6 +96,14 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
             }
         }
 
+    }
+
+     fun getProduct(id:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            val response= repository.getProduct(id)
+            _getProduct.postValue(response)
+            Log.v("*****", response.cantidad.toString())
+        }
     }
 
 }
