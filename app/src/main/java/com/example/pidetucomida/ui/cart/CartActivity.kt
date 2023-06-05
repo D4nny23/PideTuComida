@@ -109,9 +109,9 @@ class CartActivity : AppCompatActivity() {
                 Toast.makeText(this, getText(R.string.order_refused), Toast.LENGTH_SHORT).show()
             }
         }
-        viewModel.getProduct.observe(this) { product ->
+        viewModel.getProduct.observe(this) { quantity ->
             viewModel.position.observe(this) {
-                updateAdapterQuantity(it, product)
+                updateAdapterQuantity(it, quantity)
             }
         }
     }
@@ -122,9 +122,9 @@ class CartActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateAdapterQuantity(position: Int, product: Product) {
+    private fun updateAdapterQuantity(position: Int, quantity:Int) {
         (binding.rvCart.adapter as CartAdapter?)?.apply {
-            updateQuantity(position, product)
+            updateQuantity(position, quantity)
         }
         viewModel.getTotalPrice()
     }

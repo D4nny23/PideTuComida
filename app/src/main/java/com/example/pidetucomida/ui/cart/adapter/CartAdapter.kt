@@ -24,9 +24,9 @@ class CartAdapter(
         modelList.addAll(results)
         notifyDataSetChanged()
     }
-    fun updateQuantity(position:Int, product:Product){
+    fun updateQuantity(position:Int, cantidad:Int){
         val productPosition= modelList[position]
-        productPosition.cantidad= product.cantidad
+        productPosition.cantidad= cantidad
         notifyItemChanged(position)
     }
 }

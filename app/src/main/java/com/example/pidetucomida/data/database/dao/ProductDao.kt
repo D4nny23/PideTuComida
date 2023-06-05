@@ -50,7 +50,7 @@ interface ProductDao {
     @Query("Update productentity set cantidad= cantidad+1 where idProducto = :id")
     suspend fun addQuantityProduct(id: Int)
 
-    @Query("Select * from productentity where idProducto= :id")
-    suspend fun getProduct(id:Int): Product
+    @Query("Select cantidad from productentity where idProducto= :id")
+    suspend fun getProduct(id:Int): Int
 
 }

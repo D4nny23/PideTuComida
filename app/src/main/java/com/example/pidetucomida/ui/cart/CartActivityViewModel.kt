@@ -25,8 +25,8 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
     private val _order = MutableLiveData<Boolean>()
     val order: LiveData<Boolean> = _order
 
-    private val _getProduct = MutableLiveData<Product>()
-    val getProduct: LiveData<Product> = _getProduct
+    private val _getProduct = MutableLiveData<Int>()
+    val getProduct: LiveData<Int> = _getProduct
 
     private val _position = MutableLiveData<Int>()
     val position: LiveData<Int> = _position
@@ -103,7 +103,7 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
         viewModelScope.launch(Dispatchers.IO) {
             val response= repository.getProduct(id)
             _getProduct.postValue(response)
-            Log.v("*****", response.cantidad.toString())
+            Log.v("*****", response.toString())
         }
     }
 
