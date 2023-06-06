@@ -3,13 +3,17 @@ package com.example.pidetucomida.ui.cart
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -69,6 +73,30 @@ class CartActivity : AppCompatActivity() {
                 finish()
             }
         }
+
+
+            binding.etComment.viewTreeObserver?.addOnGlobalLayoutListener {
+                val r = Rect()
+                binding.etComment.getWindowVisibleDisplayFrame(r)
+                val screenHeight = binding.etComment.rootView.height
+                val keypadHeight = screenHeight - r.bottom
+
+                if (keypadHeight > screenHeight * 0.15) {
+                    val params = binding.tiComment.layoutParams as ViewGroup.MarginLayoutParams
+                    params.setMargins(0, 0, 0, 500)
+                    binding.tiComment.layoutParams = params
+                    binding.nScroll.postDelayed(
+                        {
+                            binding.nScroll.scrollTo(0, binding.tiComment.bottom)
+                        },
+                        200
+                    )
+                } else {
+                    val params = binding.tiComment.layoutParams as ViewGroup.MarginLayoutParams
+                    params.setMargins(0, 0, 0, 0)
+                    binding.tiComment.layoutParams = params
+                }
+            }
 
     }
 
