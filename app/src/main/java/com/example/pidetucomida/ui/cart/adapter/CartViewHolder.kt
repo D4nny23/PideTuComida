@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.pidetucomida.R
 import com.example.pidetucomida.databinding.RowCartProductsBinding
 import com.example.pidetucomida.model.Product
+import java.text.DecimalFormat
 
 class CartViewHolder private constructor(
     private val binding: RowCartProductsBinding, var listener: OnClickListener
@@ -22,9 +23,10 @@ class CartViewHolder private constructor(
             .apply(RequestOptions().override(300, 300))
             .centerCrop()
             .into(binding.imageView2)
-
+        val decimalFormat= DecimalFormat("#0.00")
+        val formattedPrice= decimalFormat.format(model.precio)
         binding.tvName.text = model.nombre
-        binding.tvPrice.text = context.getString(R.string.price)+ model.precio.toString()+context.getString(R.string.euro)
+        binding.tvPrice.text = context.getString(R.string.price)+ formattedPrice+context.getString(R.string.euro)
         binding.tvQuantity.text= context.getString(R.string.quantity)+ model.cantidad.toString()
         binding.ibRemove.setOnClickListener{
             listener.onClickRemove(model, position)

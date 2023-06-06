@@ -20,6 +20,7 @@ import com.example.pidetucomida.model.product.ProductResponse
 import com.example.pidetucomida.ui.content.ContentScreenActivity
 import com.example.pidetucomida.ui.detail.adapter.IngredientsAdapter
 import com.example.pidetucomida.utils.Constants
+import java.text.DecimalFormat
 
 class DetailActivity : AppCompatActivity() {
 
@@ -65,7 +66,10 @@ class DetailActivity : AppCompatActivity() {
             .into(binding.image)
 
         binding.tvTitleProduct.text = product.nombre
-        binding.tvPrice.text= product.precio.toString()+getString(R.string.euro)
+
+        val decimalFormat= DecimalFormat("#0.00")
+        val formattedPrice= decimalFormat.format(product.precio)
+        binding.tvPrice.text= formattedPrice+getString(R.string.euro)
         binding.tvDescrption.text= product.descripcion
     }
 
