@@ -2,11 +2,13 @@ package com.example.pidetucomida.ui.content
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.pidetucomida.R
 import com.example.pidetucomida.databinding.ActivityContentScreenBinding
 import com.example.pidetucomida.ui.cart.CartActivity
@@ -18,6 +20,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 class ContentScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityContentScreenBinding
+    private lateinit var preferences:SharedPreferences
+    private var email=""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility =
@@ -25,8 +30,10 @@ class ContentScreenActivity : AppCompatActivity() {
         window.statusBarColor = Color.TRANSPARENT
         binding= ActivityContentScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        preferences= getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        email = preferences.getString("correo", "").toString()
         setupToolbar()
+        setupListener()
         setupView()
 
     }
@@ -36,9 +43,15 @@ class ContentScreenActivity : AppCompatActivity() {
         binding.toolBar.tvTitle.setTextAppearance(this, R.style.TitleStyle)
         binding.toolBar.ibCart.visibility= View.VISIBLE
 
-        binding.toolBar.ibBack.setOnClickListener {
-            onBackPressed()
+        if (email!=""){
+            binding.toolBar.ibBack.setImageResource(R.drawable.ic_menu)
+            createMenu()
+        }else{
+            binding.toolBar.ibBack.setOnClickListener {
+                onBackPressed()
+            }
         }
+
         binding.toolBar.ibCart.setOnClickListener{
             startActivity(Intent(this, CartActivity::class.java))
         }
@@ -65,8 +78,6 @@ class ContentScreenActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
-        val preferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
-        val email = preferences.getString("correo", "")
         if (email!="") {
             val builder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
             builder.setTitle(R.string.logout)
@@ -86,6 +97,25 @@ class ContentScreenActivity : AppCompatActivity() {
             dialog.show()
         } else {
             onBackPressedDispatcher.onBackPressed()
+        }
+    }
+
+    private fun createMenu() {
+        val drawerLayout = binding.drawerLayout
+        val navigationDrawer = binding.navigationDrawer
+        binding.toolBar.ibBack.setOnClickListener {
+            drawerLayout.openDrawer(navigationDrawer)
+        }
+    }
+
+    private fun setupListener(){
+        binding.btnLogout.setOnClickListener {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                val editor = preferences.edit()
+                editor.clear()
+                editor.apply()
         }
     }
 

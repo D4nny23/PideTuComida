@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        goToContentActivity()
         setupListener()
         setupObservables()
     }
@@ -69,6 +70,14 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, "Correo electrónico o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun goToContentActivity(){
+        val preferences= getSharedPreferences("my_prefs", Context.MODE_PRIVATE)
+        val email = preferences.getString("correo", "").toString()
+        if (email.isNotEmpty()){
+            startActivity(Intent(this, ContentScreenActivity::class.java))
         }
     }
 

@@ -85,18 +85,6 @@ class ContentFragment : Fragment() {
 
     private fun setUpView(binding: FragmentContentBinding) {
         viewModel.getProductsByType(type)
-//        binding.svSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(text: String?): Boolean {
-//                return true
-//            }
-//
-//            override fun onQueryTextChange(text: String?): Boolean {
-//                text?.let {
-//                    viewModel.getFavouriteTouristResources(it, resourceIsFavourite)
-//                }
-//                return false
-//            }
-//        })
     }
 
     private fun getAdapter(binding: FragmentContentBinding) {
@@ -114,17 +102,6 @@ class ContentFragment : Fragment() {
                     startActivity(intent)
                 }
 
-//                override fun onClickFavorite(id: String, isFavorite: Boolean) {
-//                    viewModel.onFavoriteResource(id, isFavorite)
-//                }
-//
-//                override fun onUpdateItems(mutableList: MutableList<TouristResourceModel>) {
-//                    if (mutableList.isEmpty()){
-//                        binding.tvWithoutResult.visibility = View.VISIBLE
-//                    }else{
-//                        binding.tvWithoutResult.visibility = View.GONE
-//                    }
-//                }
             }
         )
         binding.rvProducts.adapter = myProductsAdapter
