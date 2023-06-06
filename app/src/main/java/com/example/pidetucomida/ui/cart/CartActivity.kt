@@ -29,6 +29,7 @@ import com.example.pidetucomida.ui.cart.adapter.CartViewHolder
 import com.example.pidetucomida.ui.content.ContentScreenActivity
 import com.example.pidetucomida.ui.login.MainActivity
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 
 class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
@@ -124,8 +125,11 @@ class CartActivity : AppCompatActivity() {
 
         }
         viewModel.price.observe(this) { price ->
+
+            val decimalFormat= DecimalFormat("#0.00")
+            val formattedPrice= decimalFormat.format(price)
             binding.tvTotal.text =
-                getString(R.string.total_price) + price.toString() + getString(R.string.euro)
+                getString(R.string.total_price) +formattedPrice+ getString(R.string.euro)
 
             totalPrice = price
         }
