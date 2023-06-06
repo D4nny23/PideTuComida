@@ -3,7 +3,7 @@
     <string name="write_email">Ingresa tu correo</string>
     <string name="write_pass">Ingresa tu contraseña</string>
     <string name="ok">Entrar</string>
-    <string name="skip">Omitir</string>
+    <string name="skip">Invitado</string>
     <string name="no_have_account">¿Aún no tienes cuenta?</string>
     <string name="register">Registrarte</string>
     <string name="name">Nombre</string>
@@ -13,6 +13,54 @@
     <string name="adress">Dirección</string>
     <string name="number_phone">Número de telefono</string>
     <string name="repeat_pass">Repite contraseña</string>
+    <string name="burguers">Hamburguesas</string>
+    <string name="burguer">Hamburguesa</string>
+    <string name="pizza">Pizza</string>
+    <string name="Kebab">Kebab</string>
+    <string name="hotdog">Hotdog</string>
+    <string name="loading">Cargando</string>
+    <string name="incorrect_user_password">Usuario o contraseña incorrectos</string>
+    <string name="obligatory_field">Campo obligatorio</string>
+    <string name="containts_at">Este campo debe contener "'@'"</string>
+    <string name="containts_numbers_caps_specialcharacters">La contraseña debe contener numeros, caracteres especiales y mayúsculas</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="same_password">Las contraseñas deben ser iguales</string>
+    <string name="name_no_contains_special_characters">El nombre no puede contener caracteres especiales</string>
+    <string name="lastname_no_contains_special_characters">El apellido no puede contener caracteres especiales</string>
+    <string name="address_no_contains_special_characters">La dirección no puede contener caracteres especiales</string>
+    <string name="label_register">Registro</string>
+    <string name="euro">€</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="order_summary">Resumen de pedido</string>
+    <string name="buy">Comprar</string>
+    <string name="time_out_exception">Timeout de conexión. Por favor, intenta nuevamente más tarde.</string>
+    <string name="connect_exception">Error de conexión. Por favor, verifica tu conexión a Internet.</string>
+    <string name="total_price">Precio total: \t\t</string>
+    <string name="card">Tarjeta</string>
+    <string name="cash">Efectivo</string>
+    <string name="comment">Comentario</string>
+    <string name="way_to_pay">Forma de pago</string>
+    <string name="price">Precio: </string>
+    <string name="quantity">Cantidad: </string>
+    <string name="confirm">Confirmar</string>
+    <string name="deny">Denegar</string>
+    <string name="obligatory_login">Es necesario iniciar sesión para poder finalizar el pedido</string>
+    <string name="empty_cart">Tu carrito está vacío. Agrega productos antes de realizar el pedido</string>
+    <string name="choose_way_to_pay">Selecciona una forma de pago</string>
+    <string name="make_order">Realizar pedido</string>
+    <string name="order_placed">Pedido realizado correctamente</string>
+    <string name="order_refused">El pedido no se pudo realizar, por favor vuelve a intentarlo</string>
+
+
+    <string name="confirm_order">¿Estás seguro de que quieres realizar el pedido?</string>
+    <string name="generic_error">Ocurrió un error. Por favor, intenta nuevamente más tarde.</string>
+
+
+
+    <string name="confirm_logout">¿Estás seguro de que quieres cerrar sesión?</string>
+    <string name="number_phone_contains_9characters">Este campo debe tener 9 carácteres</string>
+    <string name="yes">Sí</string>
+    <string name="no">No</string>
 
 
 </resources>
