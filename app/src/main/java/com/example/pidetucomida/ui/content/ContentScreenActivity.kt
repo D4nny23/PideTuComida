@@ -43,7 +43,7 @@ class ContentScreenActivity : AppCompatActivity() {
         binding.toolBar.tvTitle.setTextAppearance(this, R.style.TitleStyle)
         binding.toolBar.ibCart.visibility= View.VISIBLE
 
-        if (email!=""){
+        if (email.isNotEmpty()){
             binding.toolBar.ibBack.setImageResource(R.drawable.ic_menu)
             createMenu()
         }else{
