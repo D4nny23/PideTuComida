@@ -8,8 +8,8 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -149,6 +149,14 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
 
+        }
+
+        viewModel.success.observe(this){
+            if (it){
+                Toast.makeText(this, "Cliente añadido exitosamente", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(this,"Hubo un error al añadir el cliente", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

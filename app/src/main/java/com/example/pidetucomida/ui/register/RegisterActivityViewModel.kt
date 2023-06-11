@@ -43,6 +43,9 @@ class RegisterActivityViewModel : ViewModel() {
     private val _isValidAddress = MutableLiveData<Int>()
     val isValidAddress: LiveData<Int> = _isValidAddress
 
+    private val _success = MutableLiveData<Boolean>()
+    val success: LiveData<Boolean> = _success
+
     private val repository = RepositoryUsers()
     fun setupEmail(email: String) {
         viewModelScope.launch {
@@ -143,19 +146,14 @@ class RegisterActivityViewModel : ViewModel() {
 
 
     fun addClient(client: ClientDto, context: Context) {//Este metodo añadirá el cliente a la base de datos
-        Log.v("**********", client.toString())
         viewModelScope.launch {
             try {
                 val response = repository.addClient(client)
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Cliente añadido exitosamente", Toast.LENGTH_SHORT)
-                        .show()
+                    _success.postValue(true)
                 } else {
-                    Toast.makeText(
-                        context,
-                        "Hubo un error al añadir el cliente",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    _success.postValue(false)
+
                 }
             } catch (e: Exception) {
                 Toast.makeText(
