@@ -12,7 +12,6 @@ import com.example.pidetucomida.R
 import com.example.pidetucomida.ui.register.RegisterActivity
 import com.example.pidetucomida.databinding.ActivityMainBinding
 import com.example.pidetucomida.ui.content.ContentScreenActivity
-import com.example.pidetucomida.utils.Constants
 
 class MainActivity : AppCompatActivity() {
 
@@ -69,6 +68,34 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(this, ContentScreenActivity::class.java))
             } else {
                 Toast.makeText(this, "Correo electrónico o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        viewModel.setError.observe(this){
+            when(it){
+                R.string.time_out_exception ->{
+                    binding.tvNoConnection.visibility = View.VISIBLE
+                    binding.tvNoConnection.text = getString(it)
+                    binding.ivNoConnection.visibility = View.VISIBLE
+
+                    binding.tlEmail.visibility=View.GONE
+                    binding.tlPass.visibility=View.GONE
+                    binding.mbEnter.visibility=View.GONE
+                    binding.mbRegister.visibility=View.GONE
+                    binding.imageView.visibility=View.GONE
+                    binding.mbSkip.visibility=View.GONE
+                    binding.tvNoHaveAccount.visibility=View.GONE
+                }
+                R.string.connect_exception ->{
+                    binding.tvNoConnection.visibility = View.VISIBLE
+                    binding.tvNoConnection.text = getString(it)
+                    binding.ivNoConnection.visibility = View.VISIBLE
+                    binding.ivNoConnection.setImageResource(R.drawable.ic_no_connection)
+                }
+                else ->{
+                    binding.ivNoConnection.visibility = View.GONE
+                    binding.tvNoConnection.visibility = View.GONE
+                }
             }
         }
     }
