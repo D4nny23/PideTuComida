@@ -30,6 +30,8 @@ class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct)
     private val _setError = MutableLiveData<Int>()
     val setError: LiveData<Int> = _setError
 
+    private val _setErrorToast = MutableLiveData<Int>()
+    val setErrorToast: LiveData<Int> = _setErrorToast
     fun searchProductById(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             _loadingFormState.postValue(true)
@@ -53,8 +55,15 @@ class DetailActivityViewModel(private val repositoryCart: RepositoryCartProduct)
 
     fun searchIngredientsByIdProduct(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val response = RepositoryIngredient().getIngredientsByIdProduct(id)
-            _ingByProduct.postValue(response)
+            when(val response = RepositoryIngredient().getIngredientsByIdProduct(id)){
+                is Result.Success ->{
+                    val responseData= response.data
+                    _ingByProduct.postValue(responseData)
+                }
+                is Result.Error ->{
+                    _setError.postValue(response.message)
+                }
+            }
         }
     }
 
