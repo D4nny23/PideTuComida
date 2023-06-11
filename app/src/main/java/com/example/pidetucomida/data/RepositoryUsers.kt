@@ -16,6 +16,14 @@ class RepositoryUsers {
     }
 
     suspend fun login(email: String): ClientResponse {
-        return apiService.getClient("resources/api/cliente/$email")
+        return apiService.login("resources/api/cliente/$email")
+    }
+
+    suspend fun existEmail(email: String): Boolean {
+        return apiService.getClient("resources/api/cliente/existeEmail/$email")
+    }
+
+    suspend fun existNumber(number: String): Boolean {
+        return apiService.getClient("resources/api/cliente/existeNumero/$number")
     }
 }

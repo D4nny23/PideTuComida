@@ -13,5 +13,8 @@ interface ApiService {
     suspend fun createClient(@Body client: ClientDto): Response<Boolean>
 
     @GET
-    suspend fun getClient(@Url url:String):ClientResponse
+    suspend fun login(@Url url:String):ClientResponse
+
+    @GET
+    suspend fun getClient(@Url url:String):Boolean
 }

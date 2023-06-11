@@ -26,7 +26,7 @@
     <string name="logout">Cerrar sesión</string>
     <string name="same_password">Las contraseñas deben ser iguales</string>
     <string name="name_no_contains_special_characters">El nombre no puede contener caracteres especiales</string>
-    <string name="lastname_no_contains_special_characters">El apellido no puede contener caracteres especiales</string>
+    <string name="lastname_no_contains_special_characters">El apellido no puede contener caracteres especiales ni números</string>
     <string name="address_no_contains_special_characters">La dirección no puede contener caracteres especiales</string>
     <string name="label_register">Registro</string>
     <string name="euro">€</string>
@@ -50,6 +50,18 @@
     <string name="make_order">Realizar pedido</string>
     <string name="order_placed">Pedido realizado correctamente</string>
     <string name="order_refused">El pedido no se pudo realizar, por favor vuelve a intentarlo</string>
+    <string name="email_invalid">El formato del email es inválido</string>
+    <string name="invalid_phone">El número debe tener 9 dígitos</string>
+    <string name="pass_ok">Contraseña válida</string>
+    <string name="name_ok">Nombre válido</string>
+    <string name="lastname_ok">Apellido válido</string>
+    <string name="email_ok">Correo válido</string>
+    <string name="address_ok">Dirección válida</string>
+    <string name="phone_ok">Telefono válido</string>
+    <string name="email_already_exist">Ya existe un cliente registrado con ese correo</string>
+    <string name="phone_already_exist">Ya existe un cliente registrado con ese número de telefono</string>
+
+
 
 
     <string name="confirm_order">¿Estás seguro de que quieres realizar el pedido?</string>
