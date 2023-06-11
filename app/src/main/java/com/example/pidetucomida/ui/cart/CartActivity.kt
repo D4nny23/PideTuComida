@@ -6,14 +6,11 @@ import android.graphics.Color
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +32,7 @@ class CartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCartBinding
     private lateinit var viewModel: CartActivityViewModel
     private var totalPrice: Double = 0.0
+    private var orderOK=false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility =
@@ -136,6 +134,7 @@ class CartActivity : AppCompatActivity() {
 
         viewModel.order.observe(this) {
             if (it) {
+                orderOK=true
                 Toast.makeText(this, getString(R.string.order_placed), Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, getText(R.string.order_refused), Toast.LENGTH_SHORT).show()
@@ -212,10 +211,15 @@ class CartActivity : AppCompatActivity() {
                     ), productList as ArrayList<Product>
                 )
 
-                startActivity(Intent(this@CartActivity, ContentScreenActivity::class.java))
-                viewModel.deleteAll()
-                updateAdapter(productList)
-                binding.tvTotal.visibility = View.GONE
+                if (orderOK){
+                    startActivity(Intent(this@CartActivity, ContentScreenActivity::class.java))
+                    viewModel.deleteAll()
+                    updateAdapter(productList)
+                    binding.tvTotal.visibility = View.GONE
+                }
+
+
+
             }
         }
         builder.setNegativeButton(R.string.deny) { _, _ ->
