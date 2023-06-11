@@ -1,14 +1,7 @@
 package com.example.pidetucomida.ui.register
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
-import android.os.Build
-import android.util.Log
 import android.util.Patterns
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,9 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.pidetucomida.R
 import com.example.pidetucomida.data.RepositoryUsers
 import com.example.pidetucomida.model.client.ClientDto
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.launch
+import com.example.pidetucomida.utils.Result
 
 class RegisterActivityViewModel : ViewModel() {
 
@@ -46,18 +38,28 @@ class RegisterActivityViewModel : ViewModel() {
     private val _success = MutableLiveData<Boolean>()
     val success: LiveData<Boolean> = _success
 
+    private val _setError = MutableLiveData<Int>()
+    val setError: LiveData<Int> = _setError
+
     private val repository = RepositoryUsers()
     fun setupEmail(email: String) {
         viewModelScope.launch {
             if (email.isNotEmpty()) {
-                val response = repository.existEmail(email)
-                if (response) {
-                    _isValidEmail.postValue(R.string.email_already_exist)
-                } else {
-                    if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                        _isValidEmail.postValue(R.string.email_ok)
-                    } else {
-                        _isValidEmail.postValue(R.string.email_invalid)
+                when (val response = repository.existEmail(email)) {
+                    is Result.Success -> {
+                        if (response.data) {
+                            _isValidEmail.postValue(R.string.email_already_exist)
+                        } else {
+                            if (Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                                _isValidEmail.postValue(R.string.email_ok)
+                            } else {
+                                _isValidEmail.postValue(R.string.email_invalid)
+                            }
+                        }
+                    }
+
+                    is Result.Error -> {
+                        _setError.postValue(response.message)
                     }
                 }
             } else {
@@ -91,50 +93,57 @@ class RegisterActivityViewModel : ViewModel() {
     fun setupName(name: String) {
         val containsSpecialChars = name.matches(".*[^\\p{L}].*".toRegex(RegexOption.IGNORE_CASE))
         if (name.isEmpty()) {
-            _isValidName.value= R.string.obligatory_field
+            _isValidName.value = R.string.obligatory_field
         } else if (containsSpecialChars) {
-            _isValidName.value=R.string.name_no_contains_special_characters
+            _isValidName.value = R.string.name_no_contains_special_characters
         } else {
-            _isValidName.value=R.string.name_ok
+            _isValidName.value = R.string.name_ok
         }
     }
 
     fun setupLastName(lastName: String) {
-        val containsSpecialChars = lastName.matches(".*[^\\p{L}].*".toRegex(RegexOption.IGNORE_CASE))
+        val containsSpecialChars =
+            lastName.matches(".*[^\\p{L}].*".toRegex(RegexOption.IGNORE_CASE))
         if (lastName.isEmpty()) {
-            _isValidLastName.value= R.string.obligatory_field
+            _isValidLastName.value = R.string.obligatory_field
         } else if (containsSpecialChars) {
-            _isValidLastName.value=R.string.lastname_no_contains_special_characters
+            _isValidLastName.value = R.string.lastname_no_contains_special_characters
         } else {
-            _isValidLastName.value=R.string.lastname_ok
+            _isValidLastName.value = R.string.lastname_ok
 
         }
     }
 
-    fun setupAdress(address:String) {
+    fun setupAdress(address: String) {
         val containsSpecialChars = address.matches(".*[^A-Za-z0-9áéíóúÁÉÍÓÚüÜ ,].*".toRegex())
         if (address.isEmpty()) {
-            _isValidAddress.value= R.string.obligatory_field
+            _isValidAddress.value = R.string.obligatory_field
         } else if (containsSpecialChars) {
-            _isValidAddress.value=R.string.address_no_contains_special_characters
+            _isValidAddress.value = R.string.address_no_contains_special_characters
         } else {
-            _isValidAddress.value=R.string.address_ok
+            _isValidAddress.value = R.string.address_ok
         }
     }
-
 
 
     fun setupNumberPhone(number: String): Boolean {
         viewModelScope.launch {
             if (number.isNotEmpty()) {
-                val response = repository.existNumber(number)
-                if (response) {
-                    _isValidPhone.postValue(R.string.phone_already_exist)
-                } else {
-                    if (number.length==9) {
-                        _isValidPhone.postValue(R.string.phone_ok)
-                    } else {
-                        _isValidPhone.postValue(R.string.invalid_phone)
+                when (val response = repository.existNumber(number)) {
+                    is Result.Success -> {
+                        if (response.data) {
+                            _isValidPhone.postValue(R.string.phone_already_exist)
+                        } else {
+                            if (number.length == 9) {
+                                _isValidPhone.postValue(R.string.phone_ok)
+                            } else {
+                                _isValidPhone.postValue(R.string.invalid_phone)
+                            }
+                        }
+                    }
+
+                    is Result.Error -> {
+                        _setError.postValue(response.message)
                     }
                 }
             } else {
@@ -145,23 +154,27 @@ class RegisterActivityViewModel : ViewModel() {
     }
 
 
-    fun addClient(client: ClientDto, context: Context) {//Este metodo añadirá el cliente a la base de datos
+    fun addClient(
+        client: ClientDto,
+        context: Context
+    ) {//Este metodo añadirá el cliente a la base de datos
         viewModelScope.launch {
-            try {
-                val response = repository.addClient(client)
-                if (response.isSuccessful) {
-                    _success.postValue(true)
-                } else {
-                    _success.postValue(false)
+            when (val response = repository.addClient(client)) {
+                is Result.Success -> {
+                    if (response.data.isSuccessful) {
+                        _success.postValue(true)
+                    } else {
+                        _success.postValue(false)
 
+                    }
                 }
-            } catch (e: Exception) {
-                Toast.makeText(
-                    context,
-                    "Hubo un error al añadir el cliente por parte del servidor",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+                is Result.Error -> {
+                    _setError.postValue(response.message)
+                }
             }
+
+
         }
     }
 }

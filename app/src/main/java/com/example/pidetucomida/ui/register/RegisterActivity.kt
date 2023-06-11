@@ -158,6 +158,44 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this,"Hubo un error al añadir el cliente", Toast.LENGTH_SHORT).show()
             }
         }
+
+        viewModel.setError.observe(this){
+            when(it){
+                R.string.time_out_exception ->{
+                    binding.tvNoConnection.visibility = View.VISIBLE
+                    binding.tvNoConnection.text = getString(it)
+                    binding.ivNoConnection.visibility = View.VISIBLE
+
+                    binding.tiEmail.visibility=View.GONE
+                    binding.tiPass.visibility=View.GONE
+                    binding.tiAdress.visibility=View.GONE
+                    binding.mbRegister.visibility=View.GONE
+                    binding.tiLastName.visibility=View.GONE
+                    binding.tiNumberPhone.visibility=View.GONE
+                    binding.tiName.visibility=View.GONE
+                    binding.tiRepeatPass.visibility=View.GONE
+                }
+                R.string.connect_exception ->{
+                    binding.tvNoConnection.visibility = View.VISIBLE
+                    binding.tvNoConnection.text = getString(it)
+                    binding.ivNoConnection.visibility = View.VISIBLE
+                    binding.ivNoConnection.setImageResource(R.drawable.ic_no_connection)
+
+                    binding.tiEmail.visibility=View.GONE
+                    binding.tiPass.visibility=View.GONE
+                    binding.tiAdress.visibility=View.GONE
+                    binding.mbRegister.visibility=View.GONE
+                    binding.tiLastName.visibility=View.GONE
+                    binding.tiNumberPhone.visibility=View.GONE
+                    binding.tiName.visibility=View.GONE
+                    binding.tiRepeatPass.visibility=View.GONE
+                }
+                else ->{
+                    binding.ivNoConnection.visibility = View.GONE
+                    binding.tvNoConnection.visibility = View.GONE
+                }
+            }
+        }
     }
 
     private fun viewModelsFunctions(){

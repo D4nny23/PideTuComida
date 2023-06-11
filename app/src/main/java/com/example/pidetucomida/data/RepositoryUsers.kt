@@ -14,8 +14,16 @@ class RepositoryUsers {
     //Conecto con la API
     private val apiService = UtilsRetrofit().getRetrofit().create(ApiService::class.java)
 
-    suspend fun addClient(client: ClientDto): Response<Boolean> {
-        return apiService.createClient(client)
+    suspend fun addClient(client: ClientDto): Result<Response<Boolean>> {
+        return try {
+            Result.Success( apiService.createClient(client))
+        } catch (e: java.net.SocketTimeoutException) {
+            Result.Error(R.string.time_out_exception)
+        } catch (e: java.net.ConnectException) {
+            Result.Error(R.string.connect_exception)
+        } catch (e: Exception) {
+            Result.Error(R.string.generic_error)
+        }
     }
 
     suspend fun login(email: String): Result<ClientResponse> {
@@ -30,30 +38,28 @@ class RepositoryUsers {
         }
     }
 
-    suspend fun existEmail(email: String):Boolean {
-        return apiService.getClient("resources/api/cliente/existeEmail/$email")
+    suspend fun existEmail(email: String):Result<Boolean> {
+        return try {
+            Result.Success(apiService.getClient("resources/api/cliente/existeEmail/$email"))
+        } catch (e: java.net.SocketTimeoutException) {
+            Result.Error(R.string.time_out_exception)
+        } catch (e: java.net.ConnectException) {
+            Result.Error(R.string.connect_exception)
+        } catch (e: Exception) {
+            Result.Error(R.string.generic_error)
+        }
     }
-//        return try {
-//            Result.Success(apiService.getClient("resources/api/cliente/existeEmail/$email"))
-//        } catch (e: java.net.SocketTimeoutException) {
-//            Result.Error(R.string.time_out_exception)
-//        } catch (e: java.net.ConnectException) {
-//            Result.Error(R.string.connect_exception)
-//        } catch (e: Exception) {
-//            Result.Error(R.string.generic_error)
-//        }
-//    }
+//
 
-    suspend fun existNumber(number: String): Boolean {
-        return apiService.getClient("resources/api/cliente/existeNumero/$number")
-//        return try {
-//            Result.Success(apiService.getClient("resources/api/cliente/existeNumero/$number"))
-//        } catch (e: java.net.SocketTimeoutException) {
-//            Result.Error(R.string.time_out_exception)
-//        } catch (e: java.net.ConnectException) {
-//            Result.Error(R.string.connect_exception)
-//        } catch (e: Exception) {
-//            Result.Error(R.string.generic_error)
-//        }
+    suspend fun existNumber(number: String): Result<Boolean> {
+        return try {
+            Result.Success(apiService.getClient("resources/api/cliente/existeNumero/$number"))
+        } catch (e: java.net.SocketTimeoutException) {
+            Result.Error(R.string.time_out_exception)
+        } catch (e: java.net.ConnectException) {
+            Result.Error(R.string.connect_exception)
+        } catch (e: Exception) {
+            Result.Error(R.string.generic_error)
+        }
     }
 }

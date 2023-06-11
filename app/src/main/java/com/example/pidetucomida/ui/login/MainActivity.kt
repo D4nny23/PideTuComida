@@ -91,6 +91,14 @@ class MainActivity : AppCompatActivity() {
                     binding.tvNoConnection.text = getString(it)
                     binding.ivNoConnection.visibility = View.VISIBLE
                     binding.ivNoConnection.setImageResource(R.drawable.ic_no_connection)
+
+                    binding.tlEmail.visibility=View.GONE
+                    binding.tlPass.visibility=View.GONE
+                    binding.mbEnter.visibility=View.GONE
+                    binding.mbRegister.visibility=View.GONE
+                    binding.imageView.visibility=View.GONE
+                    binding.mbSkip.visibility=View.GONE
+                    binding.tvNoHaveAccount.visibility=View.GONE
                 }
                 else ->{
                     binding.ivNoConnection.visibility = View.GONE
