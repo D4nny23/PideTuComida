@@ -13,6 +13,7 @@ import com.example.pidetucomida.model.order.OrderProducts
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.example.pidetucomida.utils.Result
 
 class CartActivityViewModel(private val repository: RepositoryCartProduct) : ViewModel() {
 
@@ -30,6 +31,9 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
 
     private val _position = MutableLiveData<Int>()
     val position: LiveData<Int> = _position
+
+    private val _setError = MutableLiveData<Int>()
+    val setError: LiveData<Int> = _setError
     fun getProducts() {
         viewModelScope.launch(Dispatchers.IO) {
             _products.postValue(repository.getProducts())
@@ -75,13 +79,19 @@ class CartActivityViewModel(private val repository: RepositoryCartProduct) : Vie
 
     suspend fun insertOrder(o: Order, totalProductsInCart: ArrayList<Product>){
         withContext(Dispatchers.IO) {
-            val response= OrderRepository().insertOrder(o)
-            if (response>0){
-                insertProductInOrder(totalProductsInCart,response)
-            }else{
-                _order.postValue(false)
-
+            when(val response= OrderRepository().insertOrder(o)){
+                is Result.Success ->{
+                    if (response.data>0){
+                        insertProductInOrder(totalProductsInCart,response.data)
+                    }else{
+                        _order.postValue(false)
+                    }
+                }
+                is Result.Error ->{
+                    _setError.postValue(response.message)
+                }
             }
+
         }
     }
     private suspend fun insertProductInOrder(totalProductsInCart: ArrayList<Product>, response:Int){

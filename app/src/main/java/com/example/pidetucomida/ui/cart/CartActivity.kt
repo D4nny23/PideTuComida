@@ -126,10 +126,10 @@ class CartActivity : AppCompatActivity() {
         }
         viewModel.price.observe(this) { price ->
 
-            val decimalFormat= DecimalFormat("#0.00")
-            val formattedPrice= decimalFormat.format(price)
+            val decimalFormat = DecimalFormat("#0.00")
+            val formattedPrice = decimalFormat.format(price)
             binding.tvTotal.text =
-                getString(R.string.total_price) +formattedPrice+ getString(R.string.euro)
+                getString(R.string.total_price) + formattedPrice + getString(R.string.euro)
 
             totalPrice = price
         }
@@ -144,6 +144,17 @@ class CartActivity : AppCompatActivity() {
         viewModel.getProduct.observe(this) { quantity ->
             viewModel.position.observe(this) {
                 updateAdapterQuantity(it, quantity)
+            }
+        }
+
+        viewModel.setError.observe(this) {
+            when (it) {
+                R.string.time_out_exception -> {
+                    Toast.makeText(this, R.string.time_out_exception, Toast.LENGTH_SHORT).show()
+                }
+                R.string.connect_exception -> {
+                    Toast.makeText(this, R.string.connect_exception, Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
